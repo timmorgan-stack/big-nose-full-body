@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Nose Full Body — Wine Shop, Park Slope Brooklyn</title>
+<meta name="description" content="600+ curated wines on 7th Ave, Park Slope. Daily tastings, free neighborhood delivery, and a knowledgeable crew. Organic, biodynamic & properly funky.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4efe4;
+  --paper-2:#ece5d5;
+  --ink:#17120e;
+  --wine:#950951;
+  --wine-deep:#6d0339;
+  --brick:#b3502a;
+  --cream:#fdfaf2;
+  --display:'Anton',sans-serif;
+  --serif:'Fraunces',serif;
+  --sans:'Archivo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--wine);color:var(--cream)}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* grain overlay */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- ticker ---------- */
+.ticker{
+  background:var(--ink);color:var(--paper);
+  overflow:hidden;white-space:nowrap;
+  border-bottom:3px solid var(--wine);
+  font-family:var(--sans);font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:.55rem 0;
+}
+.ticker__track{display:inline-block;animation:tick 28s linear infinite}
+.ticker span{margin:0 1.6rem}
+.ticker .dot{color:var(--wine);-webkit-text-fill-color:currentColor}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- nav ---------- */
+header.nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--paper);
+  border-bottom:1px solid rgba(23,18,14,.15);
+}
+.nav__inner{
+  max-width:1200px;margin:0 auto;padding:.7rem 1.2rem;
+  display:flex;align-items:center;gap:1.5rem;
+}
+.nav__logo img{height:52px;width:auto;mix-blend-mode:multiply}
+.nav__links{display:flex;gap:1.6rem;margin-left:auto;align-items:center;
+  font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.nav__links a{text-decoration:none;position:relative;padding:.2rem 0}
+.nav__links a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:3px;background:var(--wine);transition:right .25s}
+.nav__links a:hover::after{right:0}
+.nav__cta{
+  background:var(--wine);color:var(--cream)!important;
+  padding:.65rem 1.2rem;border-radius:999px;text-decoration:none;
+  font-weight:700;letter-spacing:.14em;
+  transition:transform .15s,background .2s;
+}
+.nav__cta:hover{background:var(--wine-deep);transform:rotate(-2deg) scale(1.04)}
+.nav__cta::after{display:none}
+@media(max-width:820px){.nav__links a:not(.nav__cta){display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;background:var(--ink)}
+.hero__img{position:absolute;inset:0}
+.hero__img img{width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:contrast(1.05) saturate(1.05)}
+.hero__img::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(23,18,14,.25) 0%,rgba(23,18,14,.05) 40%,rgba(23,18,14,.82) 88%)}
+.hero__content{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%;padding:4rem 1.2rem 3.2rem;color:var(--cream)}
+.hero__kicker{font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:.8rem;color:#f0c8dd;margin-bottom:.8rem}
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(3.2rem,9.5vw,8rem);
+  line-height:.95;letter-spacing:.01em;text-transform:uppercase;
+  margin-bottom:1.1rem;
+}
+.hero h1 .outline{
+  color:transparent;-webkit-text-stroke:2.5px var(--cream);
+}
+.hero__sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,2vw,1.4rem);max-width:34em;margin-bottom:1.8rem;color:#efe8da}
+.hero__actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-block;text-decoration:none;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;
+  padding:.95rem 1.7rem;border-radius:999px;border:2px solid var(--cream);
+  transition:transform .15s,background .2s,color .2s;
+}
+.btn--solid{background:var(--wine);border-color:var(--wine);color:var(--cream)}
+.btn--solid:hover{background:var(--wine-deep);border-color:var(--wine-deep);transform:rotate(-1.5deg) scale(1.04)}
+.btn--ghost{color:var(--cream)}
+.btn--ghost:hover{background:var(--cream);color:var(--ink);transform:rotate(1.5deg) scale(1.04)}
+.hero__badge{
+  position:absolute;right:5%;top:14%;z-index:3;
+  width:150px;height:150px;border-radius:50%;
+  background:var(--wine);color:var(--cream);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--display);text-transform:uppercase;font-size:.95rem;line-height:1.25;
+  padding:1rem;transform:rotate(8deg);
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  animation:bob 5s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:rotate(8deg) translateY(0)}50%{transform:rotate(5deg) translateY(-10px)}}
+@media(max-width:640px){.hero__badge{width:110px;height:110px;font-size:.72rem;right:4%;top:10%}}
+
+/* ---------- section scaffolding ---------- */
+section{padding:5.5rem 0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 1.2rem}
+.sec-label{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;
+  font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:.78rem;color:var(--wine);
+}
+.sec-label::after{content:"";flex:1;height:2px;background:currentColor;opacity:.35}
+h2{
+  font-family:var(--display);text-transform:uppercase;
+  font-size:clamp(2.2rem,5vw,3.8rem);line-height:1;letter-spacing:.01em;
+  margin-bottom:1.4rem;
+}
+.lede{font-family:var(--serif);font-size:1.18rem;max-width:38em}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- shop intro ---------- */
+.shop-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+@media(max-width:860px){.shop-grid{grid-template-columns:1fr}}
+.shop-grid figure{position:relative}
+.shop-grid figure img{border-radius:14px;box-shadow:14px 14px 0 var(--wine)}
+.shop-grid .stamp{
+  position:absolute;top:-24px;right:-14px;transform:rotate(10deg);
+  background:var(--ink);color:var(--paper);font-family:var(--display);
+  padding:.5rem .9rem;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;
+}
+.stats{display:flex;gap:2.2rem;margin-top:2rem;flex-wrap:wrap}
+.stat b{font-family:var(--display);font-size:2.4rem;display:block;color:var(--wine);line-height:1}
+.stat span{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+
+/* ---------- tags ---------- */
+.tags-band{background:var(--ink);color:var(--paper);padding:4.5rem 0}
+.tags-band h2 .outline{color:transparent;-webkit-text-stroke:2px var(--paper)}
+.tags-band .sec-label{color:#e88bbf}
+.tags{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.tag{
+  font-family:var(--display);text-transform:uppercase;font-size:clamp(1rem,2.4vw,1.6rem);
+  padding:.55rem 1.3rem;border:2px solid var(--paper);border-radius:999px;text-decoration:none;
+  transition:background .2s,color .2s,transform .15s;
+}
+.tag:hover{background:var(--wine);border-color:var(--wine);transform:rotate(-2deg)}
+.tags-note{margin-top:1.6rem;font-family:var(--serif);font-style:italic;opacity:.85;max-width:44em}
+
+/* ---------- tastings & delivery ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:860px){.duo{grid-template-columns:1fr}}
+.card{
+  border:2px solid var(--ink);border-radius:16px;padding:2.2rem;
+  background:var(--cream);position:relative;
+  box-shadow:8px 8px 0 rgba(23,18,14,.9);
+}
+.card--wine{background:var(--wine);color:var(--cream);border-color:var(--wine-deep);box-shadow:8px 8px 0 var(--wine-deep)}
+.card h3{font-family:var(--display);text-transform:uppercase;font-size:1.9rem;margin-bottom:.9rem;line-height:1.05}
+.card .fine{font-size:.85rem;opacity:.8;margin-top:1rem}
+.sched{list-style:none;margin:1rem 0}
+.sched li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px dashed currentColor;font-weight:500}
+.sched li b{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem}
+.pill{display:inline-block;background:var(--ink);color:var(--paper);border-radius:999px;
+  padding:.25rem .8rem;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:1rem}
+.card--wine .pill{background:var(--cream);color:var(--wine)}
+.zone{display:flex;align-items:baseline;gap:.7rem;padding:.5rem 0}
+.zone i{width:14px;height:14px;border-radius:50%;flex:none;transform:translateY(2px)}
+.zone--orange i{background:#e07020}.zone--purple i{background:#7b3fa0}
+
+/* coupons */
+.coupons{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+@media(max-width:700px){.coupons{grid-template-columns:1fr}}
+.coupon{
+  border:2px dashed var(--ink);border-radius:12px;padding:1.6rem 1.8rem;background:var(--paper-2);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  transition:transform .15s;
+}
+.coupon:hover{transform:rotate(-1deg) scale(1.02)}
+.coupon b{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--wine)}
+.coupon .code{font-family:var(--display);background:var(--ink);color:var(--paper);padding:.5rem .9rem;border-radius:6px;letter-spacing:.1em;white-space:nowrap}
+.coupon small{display:block;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;margin-top:.3rem}
+
+/* ---------- reserve list ---------- */
+.reserve{background:var(--paper-2)}
+.bottles{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:2.4rem}
+@media(max-width:1000px){.bottles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.bottles{grid-template-columns:1fr}}
+.bottle{
+  background:var(--cream);border:2px solid var(--ink);border-radius:14px;padding:1.7rem;
+  display:flex;flex-direction:column;gap:.7rem;position:relative;
+  transition:transform .2s,box-shadow .2s;
+}
+.bottle:hover{transform:translateY(-6px) rotate(-.5deg);box-shadow:10px 12px 0 var(--wine)}
+.bottle .cat{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--wine)}
+.bottle h3{font-family:var(--display);text-transform:uppercase;font-size:1.25rem;line-height:1.15}
+.bottle .origin{font-family:var(--serif);font-style:italic;font-size:.92rem;opacity:.8}
+.bottle p{font-size:.9rem;line-height:1.55;flex:1}
+.bottle .meta{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--ink);padding-top:.9rem}
+.bottle .price{font-family:var(--display);font-size:1.5rem}
+.bottle .score{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:.28rem .7rem;border-radius:999px}
+
+/* ---------- not just wine ---------- */
+.njw{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem}
+@media(max-width:860px){.njw{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.njw{grid-template-columns:1fr}}
+.njw a{
+  border:2px solid var(--ink);border-radius:12px;padding:1.4rem 1.5rem;text-decoration:none;
+  font-family:var(--display);text-transform:uppercase;font-size:1.3rem;line-height:1.1;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  transition:background .2s,color .2s,transform .15s;background:var(--cream);
+}
+.njw a small{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.14em;opacity:.7}
+.njw a:hover{background:var(--wine);border-color:var(--wine);color:var(--cream);transform:rotate(-1deg)}
+.njw a:hover small{opacity:.9}
+
+/* ---------- gift / visit ---------- */
+.visit{background:var(--wine);color:var(--cream)}
+.visit .sec-label{color:#f0c8dd}
+.visit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+@media(max-width:860px){.visit-grid{grid-template-columns:1fr}}
+.visit address{font-style:normal;font-family:var(--serif);font-size:1.3rem;line-height:1.7;margin-bottom:1.4rem}
+.visit .btn--ghost:hover{background:var(--cream);color:var(--wine)}
+.visit img{border-radius:14px;box-shadow:12px 12px 0 var(--wine-deep)}
+.hours{list-style:none;margin:1.2rem 0 1.8rem;max-width:24em}
+.hours li{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(253,250,242,.5);padding:.5rem 0;font-weight:500}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--paper);padding:3.5rem 0 2rem}
+.foot{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:space-between;align-items:flex-start}
+.foot img{height:64px;filter:invert(1);mix-blend-mode:screen}
+.foot nav{display:flex;gap:1.6rem;flex-wrap:wrap;font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+.foot nav a{text-decoration:none}
+.foot nav a:hover{color:#e88bbf}
+.foot-bottom{margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid rgba(244,239,228,.2);
+  font-size:.75rem;opacity:.6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.big-word{
+  font-family:var(--display);text-transform:uppercase;line-height:.9;
+  font-size:clamp(3rem,11vw,9rem);color:transparent;-webkit-text-stroke:2px rgba(244,239,228,.28);
+  user-select:none;margin:2.5rem 0 0;white-space:nowrap;overflow:hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="#top" aria-label="Big Nose Full Body — home">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+    </a>
+    <nav class="nav__links">
+      <a href="#shop">The Shop</a>
+      <a href="#tastings">Tastings</a>
+      <a href="#reserve">Reserve List</a>
+      <a href="#visit">Visit</a>
+      <a class="nav__cta" href="https://www.bignosefullbody.com/shop">Shop Wines</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero__img">
+      <img src="img/storefront.jpg" alt="Big Nose Full Body storefront on 7th Avenue, Park Slope">
+    </div>
+    <div class="hero__badge">Daily tastings 15% off</div>
+    <div class="hero__content">
+      <p class="hero__kicker">Park Slope, Brooklyn — Est. on 7th Ave</p>
+      <h1>Big&nbsp;Nose.<br><span class="outline">Full&nbsp;Body.</span><br>No&nbsp;Attitude.</h1>
+      <p class="hero__sub">600+ curated bottles — organic, biodynamic, classic &amp; properly funky. Whether you're a novice or a collector, we've got you covered.</p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="https://www.bignosefullbody.com/shop">Shop the Cellar</a>
+        <a class="btn btn--ghost" href="#tastings">Tonight's Tasting</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOP -->
+  <section id="shop">
+    <div class="wrap shop-grid">
+      <div class="rv">
+        <p class="sec-label">01 — The Shop</p>
+        <h2>A Stellar Cellar</h2>
+        <p class="lede">We carry over 600 curated wines with a focus on sustainability, organics, and biodynamics. Our knowledgeable staff is here to guide you to your new weeknight favorite, the perfect pairing for any recipe, or a bottle worth saving for that special occasion.</p>
+        <div class="stats">
+          <div class="stat"><b>600+</b><span>Curated bottles</span></div>
+          <div class="stat"><b>7</b><span>Days a week</span></div>
+          <div class="stat"><b>$0</b><span>Neighborhood delivery</span></div>
+        </div>
+      </div>
+      <figure class="rv">
+        <img src="img/cellar.jpg" alt="Inside the shop — shelves of curated wine">
+        <span class="stamp">Novice → Collector</span>
+      </figure>
+    </div>
+  </section>
+
+  <!-- TAGS -->
+  <section class="tags-band">
+    <div class="wrap rv">
+      <p class="sec-label">02 — Browse Your Way</p>
+      <h2>Search the shelf <span class="outline">like we do</span></h2>
+      <div class="tags">
+        <a class="tag" href="https://www.bignosefullbody.com/shop">Vegan</a>
+        <a class="tag" href="https://www.bignosefullbody.com/shop">Organic</a>
+        <a class="tag" href="https://www.bignosefullbody.com/shop">Biodynamic</a>
+        <a class="tag" href="https://www.bignosefullbody.com/shop">Unoaked</a>
+        <a class="tag" href="https://www.bignosefullbody.com/shop">Minimal Sulfur</a>
+        <a class="tag" href="https://www.bignosefullbody.com/shop">No Added Sulfur</a>
+        <a class="tag" href="https://www.bignosefullbody.com/shop">Orange &amp; Funky</a>
+        <a class="tag" href="https://www.bignosefullbody.com/shop">Kosher</a>
+      </div>
+      <p class="tags-note">Every bottle in the shop is meticulously tagged — search by varietal, region, or any of the terms above. Not just wine, either: sake, cider, a comprehensive sparkling selection, and fortified &amp; dessert bottles too.</p>
+    </div>
+  </section>
+
+  <!-- TASTINGS + DELIVERY -->
+  <section id="tastings">
+    <div class="wrap">
+      <p class="sec-label rv">03 — Tastings &amp; Delivery</p>
+      <div class="duo">
+        <div class="card card--wine rv">
+          <span class="pill">Every single day</span>
+          <h3>Free Daily Tastings</h3>
+          <p>Stop in and try — even if you don't intend to buy. It never hurts to get to know your palate. Tasting bottles are <strong>15% off</strong>.</p>
+          <ul class="sched">
+            <li><b>Sun – Fri</b><span>5–7pm · 1 wine</span></li>
+            <li><b>Saturday</b><span>4–6pm · 3 wines</span></li>
+          </ul>
+          <p class="fine">Follow <a href="https://www.instagram.com/bignosefullbody/">@bignosefullbody</a> for what's pouring tonight.</p>
+        </div>
+        <div class="card rv">
+          <span class="pill">Same-day · Park Slope</span>
+          <h3>Free Neighborhood Delivery</h3>
+          <p>Put together a case and have it delivered straight to your door at no extra cost — or set your order for pick-up and just swing by.</p>
+          <div style="margin-top:1rem">
+            <div class="zone zone--orange"><i></i><span><strong>Orange zone</strong> — $50 minimum</span></div>
+            <div class="zone zone--purple"><i></i><span><strong>Purple zone</strong> — $100 minimum</span></div>
+          </div>
+          <p class="fine"><a href="https://www.bignosefullbody.com/delivery">Check the delivery map →</a></p>
+        </div>
+      </div>
+      <div class="coupons">
+        <div class="coupon rv">
+          <div><b>5% off</b><small>Any 6+ bottles</small></div>
+          <span class="code">HALF5</span>
+        </div>
+        <div class="coupon rv">
+          <div><b>15% off</b><small>Any 12+ bottles</small></div>
+          <span class="code">CASE15</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVE -->
+  <section id="reserve" class="reserve">
+    <div class="wrap">
+      <p class="sec-label rv">04 — The Reserve List</p>
+      <h2 class="rv">Bottles worth the wait</h2>
+      <p class="lede rv">A rotating cellar selection of rare and age-worthy finds, hand-picked and honestly described. A few current favorites:</p>
+      <div class="bottles">
+        <article class="bottle rv">
+          <span class="cat">Sparkling</span>
+          <h3>Billecart Rosé Millesime 2015</h3>
+          <p class="origin">Champagne, France</p>
+          <p>The best vintage Champagne we've had from 2015 — blood orange, red currant, strawberry danish, and a chalky streak of minerality. 100 months on the lees. A staff favorite.</p>
+          <div class="meta"><span class="price">$140</span><span class="score">95 · W. Wong</span></div>
+        </article>
+        <article class="bottle rv">
+          <span class="cat">Red — USA</span>
+          <h3>Ridge "Montebello" 2019</h3>
+          <p class="origin">Santa Cruz Mountains, California</p>
+          <p>The 57th vintage of Ridge's flagship — cassis, black olive, cigar box and exotic spice from vines first planted in 1886. Organically farmed. Cellar through 2040.</p>
+          <div class="meta"><span class="price">$300</span><span class="score">99 · Suckling</span></div>
+        </article>
+        <article class="bottle rv">
+          <span class="cat">Red — France</span>
+          <h3>Lapierre Morgon "Cuvée Marcel" 2024</h3>
+          <p class="origin">Beaujolais, France</p>
+          <p>Highly allocated natural Beaujolais from century-old vines — seductive, velvety, and precise. Biodynamic with no added sulfur.</p>
+          <div class="meta"><span class="price">$90</span><span class="score">93 · Vinous</span></div>
+        </article>
+        <article class="bottle rv">
+          <span class="cat">Dessert</span>
+          <h3>Klein Constantia "Vin de Constance" 2019</h3>
+          <p class="origin">Western Cape, South Africa</p>
+          <p>Made since 1685 and heralded by Napoleon, Dickens, and Austen. Honeysuckle, caramel, dried mango, beeswax. Fresh and sublime.</p>
+          <div class="meta"><span class="price">$100</span><span class="score">98 · Decanter</span></div>
+        </article>
+      </div>
+      <p style="margin-top:2rem" class="rv"><a class="btn btn--solid" href="https://www.bignosefullbody.com/shop">See the full reserve list</a></p>
+    </div>
+  </section>
+
+  <!-- NOT JUST WINE -->
+  <section>
+    <div class="wrap rv">
+      <p class="sec-label">05 — Not Just Wine</p>
+      <h2>Check every box</h2>
+      <div class="njw">
+        <a href="https://www.bignosefullbody.com/shop">Sparkling <small>Comprehensive</small></a>
+        <a href="https://www.bignosefullbody.com/shop">Sake &amp; Cider <small>A proper range</small></a>
+        <a href="https://www.bignosefullbody.com/shop">Orange / Funky <small>An impressive array</small></a>
+        <a href="https://www.bignosefullbody.com/shop">Kosher <small>Special selection</small></a>
+        <a href="https://www.bignosefullbody.com/shop">Fortified &amp; Dessert <small>Port · Sherry</small></a>
+        <a href="https://www.bignosefullbody.com/location">Gift Cards <small>Any amount</small></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section id="visit" class="visit">
+    <div class="wrap visit-grid">
+      <div class="rv">
+        <p class="sec-label">06 — Visit Us</p>
+        <h2>Corner of 7th &amp; 11th</h2>
+        <address>389 7th Ave (between 11th &amp; 12th)<br>Brooklyn, NY 11215</address>
+        <ul class="hours">
+          <li><span>Every day</span><strong>12pm – 9pm</strong></li>
+          <li><span>Tastings Sun–Fri</span><strong>5 – 7pm</strong></li>
+          <li><span>Tastings Saturday</span><strong>4 – 6pm</strong></li>
+        </ul>
+        <p style="margin-bottom:1.8rem">A short walk from the 7th Ave F/G — directly off the B67 &amp; B69 at 7th Av / 11th St.</p>
+        <div class="hero__actions">
+          <a class="btn btn--ghost" href="tel:+17183694030">718 369 4030</a>
+          <a class="btn btn--ghost" href="mailto:wine@bignosefullbody.com">Email the Shop</a>
+        </div>
+      </div>
+      <figure class="rv">
+        <img src="img/chalkboard.jpg" alt="Chalkboard sign outside the shop">
+      </figure>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+      <nav>
+        <a href="https://www.bignosefullbody.com/shop">Shop</a>
+        <a href="https://www.bignosefullbody.com/delivery">Delivery</a>
+        <a href="#reserve">Reserve List</a>
+        <a href="https://www.instagram.com/bignosefullbody/">Instagram</a>
+        <a href="http://www.facebook.com/bignosefullbody">Facebook</a>
+        <a href="http://www.yelp.com/biz/big-nose-full-body-brooklyn">Yelp</a>
+      </nav>
+    </div>
+    <p class="big-word">Drink Curious</p>
+    <div class="foot-bottom">
+      <span>© Big Nose Full Body · 389 7th Ave, Brooklyn NY 11215</span>
+      <span>Please drink responsibly.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  function check(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    els=els.filter(function(el){
+      if(el.getBoundingClientRect().top<vh*0.92){el.classList.add('in');return false}
+      return true;
+    });
+  }
+  ['scroll','resize','load'].forEach(function(ev){addEventListener(ev,check,{passive:true})});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+    els.forEach(function(el){io.observe(el)});
+  }
+  check();
+})();
+</script>
+</body>
+</html>
