@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="alternate" type="application/json" href="data/catalog.json" title="Cellar catalogue feed">
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body class="cmstemplate_bnfb">
@@ -82,6 +83,7 @@
         <a href="shop.html">Shop</a>
         <a href="tastings.html">Tastings &amp; Delivery</a>
         <a href="visit.html">Visit</a>
+        <a href="catalogue.html">Full Cellar List</a>
         <a href="https://www.instagram.com/bignosefullbody/">Instagram</a>
         <a href="http://www.facebook.com/bignosefullbody">Facebook</a>
         <a href="http://www.yelp.com/biz/big-nose-full-body-brooklyn">Yelp</a>
@@ -100,7 +102,7 @@
 <script>
 (function(){
   var S = window.BNFB;
-  var params = new URLSearchParams(location.search);
+  var params = new URLSearchParams(location.hash ? location.hash.slice(1) : location.search);
   var state = {
     cat: params.get('cat') && S.CATS[params.get('cat')] ? params.get('cat') : 'all',
     tags: params.get('tag') ? params.get('tag').split(',').filter(function(t){return S.TAGS[t]}) : [],
@@ -166,11 +168,12 @@
     var list = filtered();
     results.textContent = list.length + (list.length===1?' bottle':' bottles') + (state.cat!=='all' ? ' · ' + S.CATS[state.cat].label : '') + (state.tags.length ? ' · ' + state.tags.map(function(t){return S.TAGS[t]}).join(' + ') : '');
     grid.innerHTML = list.length ? list.map(card).join('') : '<p class="empty-state" style="grid-column:1/-1">Nothing on the shelf matches that — try fewer filters, or ask us; we probably have it in the back.</p>';
-    var u = new URL(location.href);
-    state.cat==='all' ? u.searchParams.delete('cat') : u.searchParams.set('cat',state.cat);
-    state.tags.length ? u.searchParams.set('tag',state.tags.join(',')) : u.searchParams.delete('tag');
-    state.q ? u.searchParams.set('q',state.q) : u.searchParams.delete('q');
-    history.replaceState(null,'',u);
+    var hp = new URLSearchParams();
+    if(state.cat!=='all') hp.set('cat',state.cat);
+    if(state.tags.length) hp.set('tag',state.tags.join(','));
+    if(state.q) hp.set('q',state.q);
+    var hs = hp.toString();
+    history.replaceState(null,'',location.pathname+(hs?'#'+hs:''));
   }
 
   catRow.addEventListener('click',function(e){
