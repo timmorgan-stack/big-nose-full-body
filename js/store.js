@@ -12,7 +12,8 @@ window.BNFB = (function () {
     red:       { label: 'Red',                 color: '#950951' },
     sake:      { label: 'Sake & Cider',        color: '#3f5b8c' },
     large:     { label: 'Large Format',        color: '#17120e' },
-    dessert:   { label: 'Dessert & Fortified', color: '#6b3fa0' }
+    dessert:   { label: 'Dessert & Fortified', color: '#6b3fa0' },
+    gift:      { label: 'Gift Cards',          color: '#17120e' }
   };
 
   var TAGS = {

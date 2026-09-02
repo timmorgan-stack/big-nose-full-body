@@ -1396,6 +1396,72 @@
         "large": "img/labels/sample-pedro-ximenez.png",
         "thumb": "img/labels/sample-pedro-ximenez.png"
       }
+    },
+    {
+      "id": "gift-card-50",
+      "ref": "gift-card-50",
+      "title": "$50 Gift Card",
+      "series": "Gift Cards",
+      "category": "gift",
+      "place": "389 7th Ave, Park Slope",
+      "year": null,
+      "medium": "Gift card",
+      "size": "$50",
+      "price": 50,
+      "status": "available",
+      "featured": false,
+      "description": "$50 to spend on anything in the shop — a bottle, a case, or a tasting's worth of new favorites. Delivered by hand in the neighborhood, or ready at the counter. Never expires.",
+      "tags": [],
+      "tagKeys": [],
+      "score": null,
+      "image": {
+        "large": "img/labels/gift-card-50.png",
+        "thumb": "img/labels/gift-card-50.png"
+      }
+    },
+    {
+      "id": "gift-card-100",
+      "ref": "gift-card-100",
+      "title": "$100 Gift Card",
+      "series": "Gift Cards",
+      "category": "gift",
+      "place": "389 7th Ave, Park Slope",
+      "year": null,
+      "medium": "Gift card",
+      "size": "$100",
+      "price": 100,
+      "status": "available",
+      "featured": false,
+      "description": "$100 to spend on anything in the shop — a bottle, a case, or a tasting's worth of new favorites. Delivered by hand in the neighborhood, or ready at the counter. Never expires.",
+      "tags": [],
+      "tagKeys": [],
+      "score": null,
+      "image": {
+        "large": "img/labels/gift-card-100.png",
+        "thumb": "img/labels/gift-card-100.png"
+      }
+    },
+    {
+      "id": "gift-card-150",
+      "ref": "gift-card-150",
+      "title": "$150 Gift Card",
+      "series": "Gift Cards",
+      "category": "gift",
+      "place": "389 7th Ave, Park Slope",
+      "year": null,
+      "medium": "Gift card",
+      "size": "$150",
+      "price": 150,
+      "status": "available",
+      "featured": false,
+      "description": "$150 to spend on anything in the shop — a bottle, a case, or a tasting's worth of new favorites. Delivered by hand in the neighborhood, or ready at the counter. Never expires.",
+      "tags": [],
+      "tagKeys": [],
+      "score": null,
+      "image": {
+        "large": "img/labels/gift-card-150.png",
+        "thumb": "img/labels/gift-card-150.png"
+      }
     }
   ]
 }
