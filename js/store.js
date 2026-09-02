@@ -27,7 +27,9 @@ window.BNFB = (function () {
     return {
       id: w.id, ref: w.ref || w.id, name: w.title, cat: CATS[w.category] ? w.category : 'red',
       origin: w.place || '', price: +w.price || 0, tags: w.tagKeys || [], score: w.score || '',
-      desc: w.description || '', image: (w.image && (w.image.thumb || w.image.large)) || '', featured: !!w.featured
+      desc: w.description || '', image: (w.image && (w.image.thumb || w.image.large)) || '', featured: !!w.featured,
+      /* -1 = open (never runs out); 0 = sold out; n = bottles on the shelf */
+      stock: (w.stock === null || w.stock === undefined || w.stock === '' || +w.stock < 0) ? -1 : Math.floor(+w.stock)
     };
   });
 
@@ -55,14 +57,27 @@ window.BNFB = (function () {
     return c.filter(function (l) { return byId(l.id) && l.qty > 0; });
   }
   function saveCart(c) { write(KEY_CART, c); renderCount(true); }
+  /* how many more of a wine the shelf allows on top of what's in the cart; Infinity for an open line */
+  function room(id) {
+    var w = byId(id); if (!w) return 0;
+    if (w.stock < 0) return Infinity;
+    var have = 0; getCart().forEach(function (l) { if (l.id === id) have = l.qty; });
+    return Math.max(0, w.stock - have);
+  }
+  /* returns true when the bottles went in; false when the shelf is empty or already all in the cart */
   function add(id, qty) {
-    if (!byId(id)) return;
+    if (!byId(id)) return false;
+    qty = qty || 1;
+    if (room(id) < qty) return false;
     var c = getCart(), found = false;
-    c.forEach(function (l) { if (l.id === id) { l.qty += (qty || 1); found = true; } });
-    if (!found) c.push({ id: id, qty: qty || 1 });
+    c.forEach(function (l) { if (l.id === id) { l.qty += qty; found = true; } });
+    if (!found) c.push({ id: id, qty: qty });
     saveCart(c);
+    return true;
   }
   function setQty(id, qty) {
+    var w = byId(id);
+    if (w && w.stock >= 0) qty = Math.min(qty, w.stock);
     var c = getCart().map(function (l) { if (l.id === id) l.qty = qty; return l; }).filter(function (l) { return l.qty > 0; });
     saveCart(c);
   }
@@ -111,7 +126,7 @@ window.BNFB = (function () {
 
   return {
     CATS: CATS, TAGS: TAGS, WINES: WINES, PROMOS: PROMOS, ZONES: ZONES, TAX_RATE: TAX_RATE,
-    byId: byId, getCart: getCart, add: add, setQty: setQty, remove: remove, clear: clear, bottles: bottles,
+    byId: byId, getCart: getCart, add: add, setQty: setQty, remove: remove, clear: clear, bottles: bottles, room: room,
     getPromo: getPromo, setPromo: setPromo, totals: totals, money: money, esc: esc, renderCount: renderCount,
     saveOrder: saveOrder, lastOrder: lastOrder, orderNumber: orderNumber
   };

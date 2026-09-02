@@ -21,6 +21,11 @@ for w in feed["works"]:
     by_cat.setdefault(w["category"], []).append(w)
 
 e = html.escape
+def stock_note(w):
+    s = w.get("stock")
+    if s is None or s < 0: return ""
+    if s == 0: return '<span class="cat-stock">Sold out</span>'
+    return f'<span class="cat-stock">Only {s} left</span>' if s <= 6 else ""
 sections = []
 for cat in order:
     works = by_cat.get(cat, [])
@@ -34,7 +39,7 @@ for cat in order:
           <p class="cat-item__origin">{e(w["place"])}</p>
           <p class="cat-item__desc">{e(w["description"])}</p>
         </div>
-        <p class="cat-item__price">${w["price"]:,}</p>
+        <p class="cat-item__price">${w["price"]:,}{stock_note(w)}</p>
       </li>
 ''' for w in works)
     sections.append(f'''  <section class="cat-section" id="{cat}">

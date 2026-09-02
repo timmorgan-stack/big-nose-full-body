@@ -397,6 +397,11 @@ footer{background:var(--ink);color:var(--paper);padding:3.5rem 0 2rem}
   border:1.5px solid rgba(23,18,14,.4);border-radius:999px;padding:.14rem .6rem;opacity:.85;
 }
 .wcard__tags span.rsv{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.wcard__tags span.low{border-color:var(--wine);color:var(--wine);opacity:1}
+.addbtn[disabled]{background:var(--paper-2);border-color:rgba(23,18,14,.3);color:rgba(23,18,14,.5);cursor:not-allowed;transform:none}
+.qty button[disabled]{opacity:.3;cursor:not-allowed}
+.qty button[disabled]:hover{background:transparent;color:inherit}
+.cat-stock{display:block;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wine);text-align:right;margin-top:.25rem}
 .wcard__meta{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--ink);padding-top:.9rem}
 .wcard__price{font-family:var(--display);font-size:1.45rem}
 .addbtn{

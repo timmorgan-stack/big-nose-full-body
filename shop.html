@@ -157,9 +157,10 @@
         '<h3>'+S.esc(w.name)+'</h3>'+
         '<p class="wcard__origin">'+S.esc(w.origin)+'</p>'+
         '<p class="wcard__desc">'+S.esc(w.desc)+'</p>'+
-        '<div class="wcard__tags">'+tags+(w.score?'<span>'+S.esc(w.score)+'</span>':'')+'</div>'+
+        '<div class="wcard__tags">'+tags+(w.score?'<span>'+S.esc(w.score)+'</span>':'')+
+          (w.stock>0&&w.stock<=6?'<span class="low">Only '+w.stock+' left</span>':'')+'</div>'+
         '<div class="wcard__meta"><span class="wcard__price">'+S.money(w.price).replace('.00','')+'</span>'+
-          '<button class="addbtn" data-add="'+w.id+'">Add to cart</button></div>'+
+          (w.stock===0?'<button class="addbtn" disabled>Sold out</button>':'<button class="addbtn" data-add="'+w.id+'">Add to cart</button>')+'</div>'+
       '</div>'+
     '</article>';
   }
@@ -190,9 +191,10 @@
   sort.addEventListener('change',function(){ state.sort = sort.value; render(); });
   grid.addEventListener('click',function(e){
     var b = e.target.closest('[data-add]'); if(!b) return;
-    S.add(b.getAttribute('data-add'),1);
-    b.textContent = 'Added ✓'; b.classList.add('added');
-    setTimeout(function(){ b.textContent='Add to cart'; b.classList.remove('added'); },1200);
+    var id = b.getAttribute('data-add');
+    if(S.add(id,1)){ b.textContent = 'Added ✓'; b.classList.add('added'); }
+    else { b.textContent = 'All '+S.byId(id).stock+' in your cart'; }
+    setTimeout(function(){ b.textContent='Add to cart'; b.classList.remove('added'); },1400);
   });
 
   renderFilters(); render();

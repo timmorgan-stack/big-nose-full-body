@@ -111,8 +111,8 @@
         return '<div class="line" data-id="'+w.id+'">'+
           '<img class="line__thumb" src="'+S.esc(w.image)+'" alt="" width="600" height="780">'+
           '<div><h3>'+S.esc(w.name)+'</h3><p class="origin">'+S.esc(w.origin)+'</p>'+
-            '<p class="unit">'+S.money(w.price)+' each · <button class="rm" data-rm="'+w.id+'">Remove</button></p></div>'+
-          '<div class="qty"><button data-dec="'+w.id+'" aria-label="Fewer">−</button><output>'+l.qty+'</output><button data-inc="'+w.id+'" aria-label="More">+</button></div>'+
+            '<p class="unit">'+S.money(w.price)+' each'+(w.stock>=0&&w.stock<=6?' · only '+w.stock+' on the shelf':'')+' · <button class="rm" data-rm="'+w.id+'">Remove</button></p></div>'+
+          '<div class="qty"><button data-dec="'+w.id+'" aria-label="Fewer">−</button><output>'+l.qty+'</output><button data-inc="'+w.id+'" aria-label="More"'+(S.room(w.id)<1?' disabled title="That\'s all we have"':'')+'>+</button></div>'+
           '<div class="lprice">'+S.money(w.price*l.qty)+'</div>'+
         '</div>';
       }).join('');

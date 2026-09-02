@@ -27,7 +27,8 @@
       "image": {
         "large": "img/labels/billecart-rose-2015.png",
         "thumb": "img/labels/billecart-rose-2015.png"
-      }
+      },
+      "stock": 8
     },
     {
       "id": "bollinger-grande-annee-2014",
@@ -53,7 +54,8 @@
       "image": {
         "large": "img/labels/bollinger-grande-annee-2014.png",
         "thumb": "img/labels/bollinger-grande-annee-2014.png"
-      }
+      },
+      "stock": 7
     },
     {
       "id": "bollinger-rd-2007",
@@ -79,7 +81,8 @@
       "image": {
         "large": "img/labels/bollinger-rd-2007.png",
         "thumb": "img/labels/bollinger-rd-2007.png"
-      }
+      },
+      "stock": 0
     },
     {
       "id": "pol-roger-churchill-2018",
@@ -105,7 +108,8 @@
       "image": {
         "large": "img/labels/pol-roger-churchill-2018.png",
         "thumb": "img/labels/pol-roger-churchill-2018.png"
-      }
+      },
+      "stock": 2
     },
     {
       "id": "jomain-puligny-perrieres-2023",
@@ -133,7 +137,8 @@
       "image": {
         "large": "img/labels/jomain-puligny-perrieres-2023.png",
         "thumb": "img/labels/jomain-puligny-perrieres-2023.png"
-      }
+      },
+      "stock": 6
     },
     {
       "id": "piuze-chablis-butteaux-2023",
@@ -161,7 +166,8 @@
       "image": {
         "large": "img/labels/piuze-chablis-butteaux-2023.png",
         "thumb": "img/labels/piuze-chablis-butteaux-2023.png"
-      }
+      },
+      "stock": 3
     },
     {
       "id": "tascante-etna-bianco-2022",
@@ -189,7 +195,8 @@
       "image": {
         "large": "img/labels/tascante-etna-bianco-2022.png",
         "thumb": "img/labels/tascante-etna-bianco-2022.png"
-      }
+      },
+      "stock": 6
     },
     {
       "id": "coppi-fausto-timorasso-2021",
@@ -217,7 +224,8 @@
       "image": {
         "large": "img/labels/coppi-fausto-timorasso-2021.png",
         "thumb": "img/labels/coppi-fausto-timorasso-2021.png"
-      }
+      },
+      "stock": 2
     },
     {
       "id": "christmann-idig-2022",
@@ -245,7 +253,8 @@
       "image": {
         "large": "img/labels/christmann-idig-2022.png",
         "thumb": "img/labels/christmann-idig-2022.png"
-      }
+      },
+      "stock": 5
     },
     {
       "id": "prum-wehlener-kabinett-2021",
@@ -273,7 +282,8 @@
       "image": {
         "large": "img/labels/prum-wehlener-kabinett-2021.png",
         "thumb": "img/labels/prum-wehlener-kabinett-2021.png"
-      }
+      },
+      "stock": 6
     },
     {
       "id": "bond-st-eden-2011",
@@ -299,7 +309,8 @@
       "image": {
         "large": "img/labels/bond-st-eden-2011.png",
         "thumb": "img/labels/bond-st-eden-2011.png"
-      }
+      },
+      "stock": 5
     },
     {
       "id": "cobb-rice-spivak-pinot-2021",
@@ -325,7 +336,8 @@
       "image": {
         "large": "img/labels/cobb-rice-spivak-pinot-2021.png",
         "thumb": "img/labels/cobb-rice-spivak-pinot-2021.png"
-      }
+      },
+      "stock": 9
     },
     {
       "id": "mount-eden-cab-2018",
@@ -351,7 +363,8 @@
       "image": {
         "large": "img/labels/mount-eden-cab-2018.png",
         "thumb": "img/labels/mount-eden-cab-2018.png"
-      }
+      },
+      "stock": 11
     },
     {
       "id": "ridge-montebello-2019",
@@ -379,7 +392,8 @@
       "image": {
         "large": "img/labels/ridge-montebello-2019.png",
         "thumb": "img/labels/ridge-montebello-2019.png"
-      }
+      },
+      "stock": 3
     },
     {
       "id": "lagrange-st-julien-2014",
@@ -407,7 +421,8 @@
       "image": {
         "large": "img/labels/lagrange-st-julien-2014.png",
         "thumb": "img/labels/lagrange-st-julien-2014.png"
-      }
+      },
+      "stock": 8
     },
     {
       "id": "bruno-clair-marsannay-2023",
@@ -433,7 +448,8 @@
       "image": {
         "large": "img/labels/bruno-clair-marsannay-2023.png",
         "thumb": "img/labels/bruno-clair-marsannay-2023.png"
-      }
+      },
+      "stock": 10
     },
     {
       "id": "montille-beaune-sizies-2023",
@@ -463,7 +479,8 @@
       "image": {
         "large": "img/labels/montille-beaune-sizies-2023.png",
         "thumb": "img/labels/montille-beaune-sizies-2023.png"
-      }
+      },
+      "stock": 10
     },
     {
       "id": "pegau-cdp-reserve-2021",
@@ -489,7 +506,8 @@
       "image": {
         "large": "img/labels/pegau-cdp-reserve-2021.png",
         "thumb": "img/labels/pegau-cdp-reserve-2021.png"
-      }
+      },
+      "stock": 11
     },
     {
       "id": "magnien-morey-ruchots-2021",
@@ -519,7 +537,8 @@
       "image": {
         "large": "img/labels/magnien-morey-ruchots-2021.png",
         "thumb": "img/labels/magnien-morey-ruchots-2021.png"
-      }
+      },
+      "stock": 4
     },
     {
       "id": "sorrel-hermitage-vignon-2021",
@@ -545,7 +564,8 @@
       "image": {
         "large": "img/labels/sorrel-hermitage-vignon-2021.png",
         "thumb": "img/labels/sorrel-hermitage-vignon-2021.png"
-      }
+      },
+      "stock": 3
     },
     {
       "id": "lapierre-morgon-marcel-2024",
@@ -577,7 +597,8 @@
       "image": {
         "large": "img/labels/lapierre-morgon-marcel-2024.png",
         "thumb": "img/labels/lapierre-morgon-marcel-2024.png"
-      }
+      },
+      "stock": 1
     },
     {
       "id": "chicco-ginestra-barolo-riserva-2013",
@@ -603,7 +624,8 @@
       "image": {
         "large": "img/labels/chicco-ginestra-barolo-riserva-2013.png",
         "thumb": "img/labels/chicco-ginestra-barolo-riserva-2013.png"
-      }
+      },
+      "stock": 4
     },
     {
       "id": "castellare-sodi-2019",
@@ -629,7 +651,8 @@
       "image": {
         "large": "img/labels/castellare-sodi-2019.png",
         "thumb": "img/labels/castellare-sodi-2019.png"
-      }
+      },
+      "stock": 9
     },
     {
       "id": "roagna-langhe-rosso-2020",
@@ -655,7 +678,8 @@
       "image": {
         "large": "img/labels/roagna-langhe-rosso-2020.png",
         "thumb": "img/labels/roagna-langhe-rosso-2020.png"
-      }
+      },
+      "stock": 6
     },
     {
       "id": "salicutti-brunello-2019",
@@ -683,7 +707,8 @@
       "image": {
         "large": "img/labels/salicutti-brunello-2019.png",
         "thumb": "img/labels/salicutti-brunello-2019.png"
-      }
+      },
+      "stock": 11
     },
     {
       "id": "musar-2018",
@@ -711,7 +736,8 @@
       "image": {
         "large": "img/labels/musar-2018.png",
         "thumb": "img/labels/musar-2018.png"
-      }
+      },
+      "stock": 8
     },
     {
       "id": "guiberteau-breze-magnum-2022",
@@ -739,7 +765,8 @@
       "image": {
         "large": "img/labels/guiberteau-breze-magnum-2022.png",
         "thumb": "img/labels/guiberteau-breze-magnum-2022.png"
-      }
+      },
+      "stock": 12
     },
     {
       "id": "faiveley-framboisiere-magnum-2023",
@@ -767,7 +794,8 @@
       "image": {
         "large": "img/labels/faiveley-framboisiere-magnum-2023.png",
         "thumb": "img/labels/faiveley-framboisiere-magnum-2023.png"
-      }
+      },
+      "stock": 12
     },
     {
       "id": "volker-eisele-cab-magnum-2016",
@@ -795,7 +823,8 @@
       "image": {
         "large": "img/labels/volker-eisele-cab-magnum-2016.png",
         "thumb": "img/labels/volker-eisele-cab-magnum-2016.png"
-      }
+      },
+      "stock": 3
     },
     {
       "id": "dows-vintage-port-2017",
@@ -821,7 +850,8 @@
       "image": {
         "large": "img/labels/dows-vintage-port-2017.png",
         "thumb": "img/labels/dows-vintage-port-2017.png"
-      }
+      },
+      "stock": 8
     },
     {
       "id": "osborne-capuchino-palo-cortado",
@@ -847,7 +877,8 @@
       "image": {
         "large": "img/labels/osborne-capuchino-palo-cortado.png",
         "thumb": "img/labels/osborne-capuchino-palo-cortado.png"
-      }
+      },
+      "stock": 2
     },
     {
       "id": "vin-de-constance-2019",
@@ -873,7 +904,8 @@
       "image": {
         "large": "img/labels/vin-de-constance-2019.png",
         "thumb": "img/labels/vin-de-constance-2019.png"
-      }
+      },
+      "stock": 6
     },
     {
       "id": "sample-cotes-du-rhone-2023",
@@ -903,7 +935,8 @@
       "image": {
         "large": "img/labels/sample-cotes-du-rhone-2023.png",
         "thumb": "img/labels/sample-cotes-du-rhone-2023.png"
-      }
+      },
+      "stock": 20
     },
     {
       "id": "sample-chianti-classico-2022",
@@ -931,7 +964,8 @@
       "image": {
         "large": "img/labels/sample-chianti-classico-2022.png",
         "thumb": "img/labels/sample-chianti-classico-2022.png"
-      }
+      },
+      "stock": 16
     },
     {
       "id": "sample-willamette-pinot-2023",
@@ -959,7 +993,8 @@
       "image": {
         "large": "img/labels/sample-willamette-pinot-2023.png",
         "thumb": "img/labels/sample-willamette-pinot-2023.png"
-      }
+      },
+      "stock": 47
     },
     {
       "id": "sample-kosher-galilee-cab-2022",
@@ -989,7 +1024,8 @@
       "image": {
         "large": "img/labels/sample-kosher-galilee-cab-2022.png",
         "thumb": "img/labels/sample-kosher-galilee-cab-2022.png"
-      }
+      },
+      "stock": 46
     },
     {
       "id": "sample-muscadet-2023",
@@ -1019,7 +1055,8 @@
       "image": {
         "large": "img/labels/sample-muscadet-2023.png",
         "thumb": "img/labels/sample-muscadet-2023.png"
-      }
+      },
+      "stock": 41
     },
     {
       "id": "sample-gruner-2024",
@@ -1049,7 +1086,8 @@
       "image": {
         "large": "img/labels/sample-gruner-2024.png",
         "thumb": "img/labels/sample-gruner-2024.png"
-      }
+      },
+      "stock": 31
     },
     {
       "id": "sample-txakoli-2024",
@@ -1077,7 +1115,8 @@
       "image": {
         "large": "img/labels/sample-txakoli-2024.png",
         "thumb": "img/labels/sample-txakoli-2024.png"
-      }
+      },
+      "stock": 43
     },
     {
       "id": "sample-chablis-village-2023",
@@ -1107,7 +1146,8 @@
       "image": {
         "large": "img/labels/sample-chablis-village-2023.png",
         "thumb": "img/labels/sample-chablis-village-2023.png"
-      }
+      },
+      "stock": 42
     },
     {
       "id": "sample-vera-vinho-verde-rose-2024",
@@ -1135,7 +1175,8 @@
       "image": {
         "large": "img/labels/sample-vera-vinho-verde-rose-2024.png",
         "thumb": "img/labels/sample-vera-vinho-verde-rose-2024.png"
-      }
+      },
+      "stock": 26
     },
     {
       "id": "sample-provence-rose-2024",
@@ -1163,7 +1204,8 @@
       "image": {
         "large": "img/labels/sample-provence-rose-2024.png",
         "thumb": "img/labels/sample-provence-rose-2024.png"
-      }
+      },
+      "stock": 29
     },
     {
       "id": "sample-ramato-pinot-grigio-2023",
@@ -1193,7 +1235,8 @@
       "image": {
         "large": "img/labels/sample-ramato-pinot-grigio-2023.png",
         "thumb": "img/labels/sample-ramato-pinot-grigio-2023.png"
-      }
+      },
+      "stock": 45
     },
     {
       "id": "sample-georgian-rkatsiteli-2022",
@@ -1225,7 +1268,8 @@
       "image": {
         "large": "img/labels/sample-georgian-rkatsiteli-2022.png",
         "thumb": "img/labels/sample-georgian-rkatsiteli-2022.png"
-      }
+      },
+      "stock": 19
     },
     {
       "id": "sample-lambrusco-sorbara-nv",
@@ -1253,7 +1297,8 @@
       "image": {
         "large": "img/labels/sample-lambrusco-sorbara-nv.png",
         "thumb": "img/labels/sample-lambrusco-sorbara-nv.png"
-      }
+      },
+      "stock": 45
     },
     {
       "id": "sample-petnat-chenin-2024",
@@ -1283,7 +1328,8 @@
       "image": {
         "large": "img/labels/sample-petnat-chenin-2024.png",
         "thumb": "img/labels/sample-petnat-chenin-2024.png"
-      }
+      },
+      "stock": 22
     },
     {
       "id": "sample-cremant-jura-nv",
@@ -1311,7 +1357,8 @@
       "image": {
         "large": "img/labels/sample-cremant-jura-nv.png",
         "thumb": "img/labels/sample-cremant-jura-nv.png"
-      }
+      },
+      "stock": 18
     },
     {
       "id": "sample-junmai-ginjo-sake",
@@ -1339,7 +1386,8 @@
       "image": {
         "large": "img/labels/sample-junmai-ginjo-sake.png",
         "thumb": "img/labels/sample-junmai-ginjo-sake.png"
-      }
+      },
+      "stock": 37
     },
     {
       "id": "sample-dry-hopped-cider",
@@ -1367,7 +1415,8 @@
       "image": {
         "large": "img/labels/sample-dry-hopped-cider.png",
         "thumb": "img/labels/sample-dry-hopped-cider.png"
-      }
+      },
+      "stock": 13
     },
     {
       "id": "sample-pedro-ximenez",
@@ -1395,7 +1444,8 @@
       "image": {
         "large": "img/labels/sample-pedro-ximenez.png",
         "thumb": "img/labels/sample-pedro-ximenez.png"
-      }
+      },
+      "stock": 21
     },
     {
       "id": "gift-card-50",
@@ -1417,7 +1467,8 @@
       "image": {
         "large": "img/labels/gift-card-50.png",
         "thumb": "img/labels/gift-card-50.png"
-      }
+      },
+      "stock": null
     },
     {
       "id": "gift-card-100",
@@ -1439,7 +1490,8 @@
       "image": {
         "large": "img/labels/gift-card-100.png",
         "thumb": "img/labels/gift-card-100.png"
-      }
+      },
+      "stock": null
     },
     {
       "id": "gift-card-150",
@@ -1461,7 +1513,8 @@
       "image": {
         "large": "img/labels/gift-card-150.png",
         "thumb": "img/labels/gift-card-150.png"
-      }
+      },
+      "stock": null
     }
   ]
 }
