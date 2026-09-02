@@ -59,22 +59,23 @@ header.nav{
 .nav__links a{text-decoration:none;position:relative;padding:.2rem 0;white-space:nowrap;flex:none}
 .nav__links a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:3px;background:var(--wine);transition:right .25s}
 .nav__links a:hover::after{right:0}
-/* scoped under .nav__links so these outrank the generic `.nav__links a` rule above */
-.nav__links .nav__cta{
+.nav__actions{display:flex;align-items:center;gap:.8rem;flex:none}
+/* scoped so these outrank the generic `.nav__links a` rule above wherever they sit */
+.nav__actions .nav__cta,.nav__links .nav__cta{
   background:var(--wine);color:var(--cream)!important;
   padding:.75rem 1.6rem;border-radius:999px;text-decoration:none;
   font-weight:700;letter-spacing:.14em;
   transition:transform .15s,background .2s;
 }
-.nav__links .nav__cta:hover{background:var(--wine-deep);transform:rotate(-2deg) scale(1.04)}
-.nav__links .nav__cta::after{display:none}
-.nav__links .nav__cart{
+.nav__actions .nav__cta:hover,.nav__links .nav__cta:hover{background:var(--wine-deep);transform:rotate(-2deg) scale(1.04)}
+.nav__actions .nav__cta::after,.nav__links .nav__cta::after{display:none}
+.nav__actions .nav__cart,.nav__links .nav__cart{
   display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;
   border:2px solid var(--ink);border-radius:999px;padding:.55rem 1.3rem;
   font-weight:700;letter-spacing:.12em;transition:transform .15s,background .2s,color .2s;
 }
-.nav__links .nav__cart:hover{background:var(--ink);color:var(--paper);transform:rotate(-2deg)}
-.nav__links .nav__cart::after{display:none}
+.nav__actions .nav__cart:hover,.nav__links .nav__cart:hover{background:var(--ink);color:var(--paper);transform:rotate(-2deg)}
+.nav__actions .nav__cart::after,.nav__links .nav__cart::after{display:none}
 .nav__cart b{
   background:var(--wine);color:var(--cream);border-radius:999px;
   min-width:1.55em;height:1.55em;display:inline-flex;align-items:center;justify-content:center;
@@ -82,8 +83,22 @@ header.nav{
 }
 .nav__cart b.bump{animation:bump .35s}
 @keyframes bump{50%{transform:scale(1.35)}}
-@media(max-width:980px){.nav__links a:not(.nav__cta):not(.nav__cart){display:none}}
-@media(max-width:480px){.nav__links .nav__cta{padding:.6rem 1.1rem}.nav__links .nav__cart{padding:.45rem 1rem}}
+@media(max-width:980px){.nav__links{display:none}.nav__actions{margin-left:auto}}
+@media(max-width:480px){.nav__actions .nav__cta{padding:.6rem 1.1rem}.nav__actions .nav__cart{padding:.45rem 1rem}}
+
+/* ---------- tastings + visit pages ---------- */
+.tastings-page{padding-top:1rem}
+.zones{margin-top:1rem}
+.how{background:var(--paper-2)}
+.how__note{color:var(--ink);opacity:.8}
+.visit__title{font-family:var(--display);text-transform:uppercase;font-size:clamp(2.4rem,6vw,4.2rem);line-height:.95;margin-bottom:1rem}
+.visit__transit{margin-bottom:1.8rem}
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
+@media(max-width:860px){.contact-grid{grid-template-columns:1fr}}
+.contact-form{margin:0}
+.contact-form textarea{resize:vertical;min-height:7rem}
+.contact-form__submit{margin-top:1.2rem}
+.contact-form__fine{font-size:.78rem;opacity:.7;margin-top:.8rem}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;background:var(--ink)}
