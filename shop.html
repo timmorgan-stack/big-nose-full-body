@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cellar — Big Nose Full Body</title>
+<meta name="description" content="Shop 600+ curated wines from Big Nose Full Body, Park Slope. Free neighborhood delivery or pick up in store.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body class="cmstemplate_bnfb">
+
+<div class="ticker cmsobject_Ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+  </div>
+</div>
+
+<header class="nav cmsobject_SiteHeader">
+  <div class="nav__inner">
+    <a class="nav__logo" href="index.html" aria-label="Big Nose Full Body — home">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+    </a>
+    <nav class="nav__links">
+      <a href="index.html#shop">The Shop</a>
+      <a href="index.html#tastings">Tastings</a>
+      <a href="shop.html?tag=reserve">Reserve List</a>
+      <a href="index.html#visit">Visit</a>
+      <a class="nav__cta" href="shop.html">Shop Wines</a>
+      <a class="nav__cart" href="cart.html">Cart <b data-cart-count>0</b></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="sec-label">The Cellar</p>
+      <h1>Shop the shelf</h1>
+      <p class="lede">Every bottle tagged the way we tag them in the shop. Filter by what matters to you, build a case, and we'll bring it round — free — or have it ready for pick-up.</p>
+      <p class="demo-note"><b>Demo storefront</b><span>Reserve-list bottles are from the shop's current list; everyday bottles marked “sample listing” are placeholders. Label images stand in for bottle shots. No real orders or payments are processed.</span></p>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="wrap">
+      <div class="filters__row" id="catRow" data-hook="shop-categories" role="group" aria-label="Category"></div>
+      <div class="filters__row">
+        <div class="filters__row" id="tagRow" data-hook="shop-tags" role="group" aria-label="Tags" style="flex:1"></div>
+        <input type="search" id="q" placeholder="Search grape, region, producer…" aria-label="Search wines">
+        <select id="sort" aria-label="Sort">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: low → high</option>
+          <option value="price-desc">Price: high → low</option>
+          <option value="name">A → Z</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <p class="results-line" id="results" data-hook="shop-results"></p>
+    <div class="wgrid" id="grid" data-hook="shop-grid"></div>
+  </div>
+</main>
+
+<footer class="cmsobject_SiteFooter">
+  <div class="wrap">
+    <div class="foot">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+      <nav>
+        <a href="shop.html">Shop</a>
+        <a href="index.html#tastings">Delivery</a>
+        <a href="shop.html?tag=reserve">Reserve List</a>
+        <a href="https://www.instagram.com/bignosefullbody/">Instagram</a>
+        <a href="http://www.facebook.com/bignosefullbody">Facebook</a>
+        <a href="http://www.yelp.com/biz/big-nose-full-body-brooklyn">Yelp</a>
+      </nav>
+    </div>
+    <p class="big-word">Drink Curious</p>
+    <div class="foot-bottom">
+      <span>© Big Nose Full Body · 389 7th Ave, Brooklyn NY 11215</span>
+      <span>Please drink responsibly.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data/catalog.js"></script>
+<script src="js/store.js"></script>
+<script>
+(function(){
+  var S = window.BNFB;
+  var params = new URLSearchParams(location.search);
+  var state = {
+    cat: params.get('cat') && S.CATS[params.get('cat')] ? params.get('cat') : 'all',
+    tags: params.get('tag') ? params.get('tag').split(',').filter(function(t){return S.TAGS[t]}) : [],
+    q: params.get('q') || '',
+    sort: 'featured'
+  };
+  var catRow = document.getElementById('catRow'), tagRow = document.getElementById('tagRow');
+  var grid = document.getElementById('grid'), results = document.getElementById('results');
+  var q = document.getElementById('q'), sort = document.getElementById('sort');
+  q.value = state.q;
+
+  var CAT_ORDER = ['all','sparkling','white','rose','orange','red','sake','large','dessert'];
+  var TAG_ORDER = ['reserve','organic','biodynamic','natural','vegan','unoaked','minimal-sulfur','no-added-sulfur','kosher'];
+
+  function renderFilters(){
+    catRow.innerHTML = CAT_ORDER.map(function(c){
+      var label = c==='all' ? 'All' : S.CATS[c].label;
+      return '<button class="fpill'+(state.cat===c?' on':'')+'" data-cat="'+c+'" aria-pressed="'+(state.cat===c)+'">'+label+'</button>';
+    }).join('');
+    tagRow.innerHTML = TAG_ORDER.map(function(t){
+      var on = state.tags.indexOf(t)>-1;
+      return '<button class="fchip'+(on?' on':'')+'" data-tag="'+t+'" aria-pressed="'+on+'">'+S.TAGS[t]+'</button>';
+    }).join('');
+  }
+
+  function filtered(){
+    var needle = state.q.trim().toLowerCase();
+    var list = S.WINES.filter(function(w){
+      if(state.cat!=='all' && w.cat!==state.cat) return false;
+      for(var i=0;i<state.tags.length;i++) if(w.tags.indexOf(state.tags[i])<0) return false;
+      if(needle){
+        var hay = (w.name+' '+w.origin+' '+w.desc+' '+S.CATS[w.cat].label+' '+w.tags.map(function(t){return S.TAGS[t]}).join(' ')).toLowerCase();
+        if(hay.indexOf(needle)<0) return false;
+      }
+      return true;
+    });
+    if(state.sort==='price-asc') list.sort(function(a,b){return a.price-b.price});
+    else if(state.sort==='price-desc') list.sort(function(a,b){return b.price-a.price});
+    else if(state.sort==='name') list.sort(function(a,b){return a.name.localeCompare(b.name)});
+    return list;
+  }
+
+  function card(w){
+    var c = S.CATS[w.cat];
+    var tags = w.tags.map(function(t){
+      return '<span'+(t==='reserve'?' class="rsv"':'')+'>'+S.TAGS[t]+'</span>';
+    }).join('');
+    return '<article class="wcard" data-ref="'+S.esc(w.ref)+'" style="--label-cat:'+c.color+';--label-tint:color-mix(in srgb,'+c.color+' 14%,transparent)">'+
+      '<div class="wcard__img"><img src="'+S.esc(w.image)+'" alt="" loading="lazy" width="600" height="780"></div>'+
+      '<div class="wcard__body">'+
+        '<span class="wcard__cat">'+c.label+'</span>'+
+        '<h3>'+S.esc(w.name)+'</h3>'+
+        '<p class="wcard__origin">'+S.esc(w.origin)+'</p>'+
+        '<p class="wcard__desc">'+S.esc(w.desc)+'</p>'+
+        '<div class="wcard__tags">'+tags+(w.score?'<span>'+S.esc(w.score)+'</span>':'')+'</div>'+
+        '<div class="wcard__meta"><span class="wcard__price">'+S.money(w.price).replace('.00','')+'</span>'+
+          '<button class="addbtn" data-add="'+w.id+'">Add to cart</button></div>'+
+      '</div>'+
+    '</article>';
+  }
+
+  function render(){
+    var list = filtered();
+    results.textContent = list.length + (list.length===1?' bottle':' bottles') + (state.cat!=='all' ? ' · ' + S.CATS[state.cat].label : '') + (state.tags.length ? ' · ' + state.tags.map(function(t){return S.TAGS[t]}).join(' + ') : '');
+    grid.innerHTML = list.length ? list.map(card).join('') : '<p class="empty-state" style="grid-column:1/-1">Nothing on the shelf matches that — try fewer filters, or ask us; we probably have it in the back.</p>';
+    var u = new URL(location.href);
+    state.cat==='all' ? u.searchParams.delete('cat') : u.searchParams.set('cat',state.cat);
+    state.tags.length ? u.searchParams.set('tag',state.tags.join(',')) : u.searchParams.delete('tag');
+    state.q ? u.searchParams.set('q',state.q) : u.searchParams.delete('q');
+    history.replaceState(null,'',u);
+  }
+
+  catRow.addEventListener('click',function(e){
+    var b = e.target.closest('[data-cat]'); if(!b) return;
+    state.cat = b.getAttribute('data-cat'); renderFilters(); render();
+  });
+  tagRow.addEventListener('click',function(e){
+    var b = e.target.closest('[data-tag]'); if(!b) return;
+    var t = b.getAttribute('data-tag'), i = state.tags.indexOf(t);
+    i>-1 ? state.tags.splice(i,1) : state.tags.push(t);
+    renderFilters(); render();
+  });
+  q.addEventListener('input',function(){ state.q = q.value; render(); });
+  sort.addEventListener('change',function(){ state.sort = sort.value; render(); });
+  grid.addEventListener('click',function(e){
+    var b = e.target.closest('[data-add]'); if(!b) return;
+    S.add(b.getAttribute('data-add'),1);
+    b.textContent = 'Added ✓'; b.classList.add('added');
+    setTimeout(function(){ b.textContent='Add to cart'; b.classList.remove('added'); },1200);
+  });
+
+  renderFilters(); render();
+})();
+</script>
+</body>
+</html>

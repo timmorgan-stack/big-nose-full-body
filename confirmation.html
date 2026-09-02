@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Confirmed — Big Nose Full Body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body class="cmstemplate_bnfb">
+
+<div class="ticker cmsobject_Ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+  </div>
+</div>
+
+<header class="nav cmsobject_SiteHeader">
+  <div class="nav__inner">
+    <a class="nav__logo" href="index.html" aria-label="Big Nose Full Body — home">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+    </a>
+    <nav class="nav__links">
+      <a href="index.html#shop">The Shop</a>
+      <a href="index.html#tastings">Tastings</a>
+      <a href="shop.html?tag=reserve">Reserve List</a>
+      <a href="index.html#visit">Visit</a>
+      <a class="nav__cta" href="shop.html">Shop Wines</a>
+      <a class="nav__cart" href="cart.html">Cart <b data-cart-count>0</b></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="receipt-wrap">
+    <div class="wrap">
+      <div class="receipt" id="receipt" data-hook="order-receipt"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="cmsobject_SiteFooter">
+  <div class="wrap">
+    <div class="foot">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+      <nav>
+        <a href="shop.html">Shop</a>
+        <a href="index.html#tastings">Delivery</a>
+        <a href="shop.html?tag=reserve">Reserve List</a>
+        <a href="https://www.instagram.com/bignosefullbody/">Instagram</a>
+        <a href="http://www.facebook.com/bignosefullbody">Facebook</a>
+        <a href="http://www.yelp.com/biz/big-nose-full-body-brooklyn">Yelp</a>
+      </nav>
+    </div>
+    <p class="big-word">Drink Curious</p>
+    <div class="foot-bottom">
+      <span>© Big Nose Full Body · 389 7th Ave, Brooklyn NY 11215</span>
+      <span>Please drink responsibly.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data/catalog.js"></script>
+<script src="js/store.js"></script>
+<script>
+(function(){
+  var S = window.BNFB, o = S.lastOrder(), el = document.getElementById('receipt');
+  if(!o){
+    el.innerHTML = '<span class="stamp">Hmm</span><h1>No recent order</h1><p class="next">We couldn\'t find an order on this device. If you just placed one, check your email for the receipt — otherwise, the cellar\'s open.</p><div class="actions"><a class="btn btn--solid" href="shop.html">Shop the cellar</a></div>';
+    return;
+  }
+  var when = new Date(o.placedAt);
+  var delivery = o.zone!=='pickup';
+  var next = delivery
+    ? 'We\'ll text <b>'+S.esc(o.customer.phone)+'</b> when your case leaves the shop — same-day, usually within a couple of hours. Someone 21+ with ID needs to be at <b>'+S.esc(o.address.line1)+'</b> to sign for it.'
+    : 'Your case will be ready for pick-up at <b>389 7th Ave</b> in about an hour — we\'re open 12 to 9 every day. Bring ID, and stick around for the 5pm tasting if you\'re early.';
+
+  el.innerHTML =
+    '<span class="stamp">Order in!</span>'+
+    '<h1>Cheers, '+S.esc(o.customer.name.split(' ')[0])+'.</h1>'+
+    '<p class="orderno">Order '+S.esc(o.number)+' · '+when.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' '+when.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})+'</p>'+
+    '<p class="next">'+next+'</p>'+
+    o.lines.map(function(l){ return '<div class="rline"><span><b>'+l.qty+' ×</b> '+S.esc(l.name)+'<br><small class="rline__origin">'+S.esc(l.origin)+'</small></span><span>'+S.money(l.price*l.qty)+'</span></div>'; }).join('')+
+    '<div class="rline"><span>'+o.bottles+' bottles</span><span>'+S.money(o.subtotal)+'</span></div>'+
+    (o.promo ? '<div class="rline rline--disc"><span>'+S.esc(o.promo)+'</span><span>−'+S.money(o.discount)+'</span></div>' : '')+
+    '<div class="rline"><span>'+S.esc(o.zoneLabel)+'</span><span>Free</span></div>'+
+    '<div class="rline"><span>NYC sales tax</span><span>'+S.money(o.tax)+'</span></div>'+
+    '<div class="rline total"><span>Paid</span><span>'+S.money(o.total)+'</span></div>'+
+    '<p class="fine rfine">'+S.esc(o.payment)+'. A receipt has gone to '+S.esc(o.customer.email)+'.'+(o.note?' Your note: “'+S.esc(o.note)+'”':'')+'</p>'+
+    '<div class="actions"><a class="btn btn--solid" href="shop.html">Keep browsing</a><a class="btn btn--ink" href="index.html#tastings">Tonight\'s tasting</a></div>';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — Big Nose Full Body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body class="cmstemplate_bnfb">
+
+<div class="ticker cmsobject_Ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+  </div>
+</div>
+
+<header class="nav cmsobject_SiteHeader">
+  <div class="nav__inner">
+    <a class="nav__logo" href="index.html" aria-label="Big Nose Full Body — home">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+    </a>
+    <nav class="nav__links">
+      <a href="index.html#shop">The Shop</a>
+      <a href="index.html#tastings">Tastings</a>
+      <a href="shop.html?tag=reserve">Reserve List</a>
+      <a href="index.html#visit">Visit</a>
+      <a class="nav__cta" href="shop.html">Shop Wines</a>
+      <a class="nav__cart" href="cart.html">Cart <b data-cart-count>0</b></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="sec-label">Checkout</p>
+      <h1>Nearly there</h1>
+      <p class="demo-note"><b>Demo checkout</b><span>Nothing is charged and nothing is sent anywhere. Don't enter a real card — any digits will do.</span></p>
+    </div>
+  </div>
+
+  <div class="wrap co-grid" id="coGrid">
+    <form id="coForm" novalidate>
+
+      <div class="co-step">
+        <h3><span class="n">1</span> How are you getting it?</h3>
+        <div class="opts" id="zones">
+          <label class="opt"><input type="radio" name="zone" value="pickup" checked>
+            <span><b>Pick up in store</b><small>Ready in about an hour during opening hours — 12 to 9 every day. 389 7th Ave, corner of 11th.</small></span></label>
+          <label class="opt" data-min="50"><input type="radio" name="zone" value="orange">
+            <span><b>Free delivery — orange zone</b><small>Same-day, $50 minimum. Roughly 7th Ave from Flatbush to the Prospect Expressway, 5th Ave to the park.</small><span class="min-warn" data-hook="min-warn"></span></span></label>
+          <label class="opt" data-min="100"><input type="radio" name="zone" value="purple">
+            <span><b>Free delivery — purple zone</b><small>Same-day, $100 minimum. Wider Park Slope, South Slope, Windsor Terrace and Prospect Heights edges.</small><span class="min-warn" data-hook="min-warn"></span></span></label>
+        </div>
+      </div>
+
+      <div class="co-step">
+        <h3><span class="n">2</span> Who's it for?</h3>
+        <div class="fields">
+          <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required><p class="field-err">We'll need a name for the order.</p></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="For delivery updates"><p class="field-err">A phone number so we can reach you.</p></div>
+          <div class="field full"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required><p class="field-err">Enter a valid email for your receipt.</p></div>
+          <div class="field full addr"><label for="addr1">Street address</label><input id="addr1" name="addr1" type="text" autocomplete="street-address" placeholder="Apt / buzzer welcome"><p class="field-err">Where should we bring it?</p></div>
+          <div class="field addr"><label for="city">City</label><input id="city" name="city" type="text" value="Brooklyn" autocomplete="address-level2"></div>
+          <div class="field addr"><label for="zip">ZIP</label><input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="11215"><p class="field-err">ZIP code please.</p></div>
+          <div class="field full"><label for="note">Note for the shop — optional</label><input id="note" name="note" type="text" placeholder="Leave with doorman · call on arrival · it's a gift"></div>
+        </div>
+      </div>
+
+      <div class="co-step">
+        <h3><span class="n">3</span> Payment</h3>
+        <div class="fields">
+          <div class="field full"><label for="ccname">Name on card</label><input id="ccname" type="text" autocomplete="off" required><p class="field-err">Name as it appears on the card.</p></div>
+          <div class="field full"><label for="ccnum">Card number</label><input id="ccnum" type="text" inputmode="numeric" autocomplete="off" placeholder="4242 4242 4242 4242" required><p class="field-err">Any 16 digits will do for the demo.</p></div>
+          <div class="field"><label for="ccexp">Expiry</label><input id="ccexp" type="text" autocomplete="off" placeholder="MM / YY" required><p class="field-err">Expiry date.</p></div>
+          <div class="field"><label for="cccvc">CVC</label><input id="cccvc" type="text" inputmode="numeric" autocomplete="off" placeholder="123" required><p class="field-err">Three digits.</p></div>
+        </div>
+        <label class="age"><input type="checkbox" id="age21" required>
+          <span>I confirm I'm 21 or older, and a person of legal drinking age with ID will receive this order.</span></label>
+        <p class="field-err" id="ageErr">We can only sell to adults 21+.</p>
+      </div>
+
+      <div class="co-step co-step--submit">
+        <button class="btn btn--solid" type="submit" id="placeBtn">Place order</button>
+        <p class="fine">By placing an order you agree to show valid ID at delivery or pick-up.</p>
+      </div>
+    </form>
+
+    <aside class="summary">
+      <div class="card">
+        <h3>Your case</h3>
+        <div id="items" data-hook="checkout-items"></div>
+        <div id="totals" data-hook="checkout-totals"></div>
+        <p class="fine"><a href="cart.html">Edit your case →</a></p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="cmsobject_SiteFooter">
+  <div class="wrap">
+    <div class="foot">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+      <nav>
+        <a href="shop.html">Shop</a>
+        <a href="index.html#tastings">Delivery</a>
+        <a href="shop.html?tag=reserve">Reserve List</a>
+        <a href="https://www.instagram.com/bignosefullbody/">Instagram</a>
+        <a href="http://www.facebook.com/bignosefullbody">Facebook</a>
+        <a href="http://www.yelp.com/biz/big-nose-full-body-brooklyn">Yelp</a>
+      </nav>
+    </div>
+    <p class="big-word">Drink Curious</p>
+    <div class="foot-bottom">
+      <span>© Big Nose Full Body · 389 7th Ave, Brooklyn NY 11215</span>
+      <span>Please drink responsibly.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data/catalog.js"></script>
+<script src="js/store.js"></script>
+<script>
+(function(){
+  var S = window.BNFB;
+  var form = document.getElementById('coForm'), zones = document.getElementById('zones');
+  var items = document.getElementById('items'), totalsEl = document.getElementById('totals');
+
+  var t = S.totals();
+  if(!t.lines.length){
+    document.getElementById('coGrid').innerHTML = '<p class="empty-state" style="grid-column:1/-1">Nothing to check out yet. <a href="shop.html">Pick a few bottles first →</a></p>';
+    return;
+  }
+
+  function zone(){ return form.querySelector('input[name=zone]:checked').value; }
+  function isDelivery(){ return zone()!=='pickup'; }
+
+  function renderSummary(){
+    items.innerHTML = t.lines.map(function(l){
+      var w = S.byId(l.id);
+      return '<div class="trow" style="font-size:.86rem"><span>'+l.qty+' × '+S.esc(w.name)+'</span><span>'+S.money(w.price*l.qty)+'</span></div>';
+    }).join('');
+    var rows = '<div class="trow"><span>Subtotal</span><span>'+S.money(t.subtotal)+'</span></div>';
+    if(t.promoState==='ok') rows += '<div class="trow disc"><span>'+t.promo+'</span><span>−'+S.money(t.discount)+'</span></div>';
+    rows += '<div class="trow"><span>'+(isDelivery()?'Delivery':'Pick-up')+'</span><span>Free</span></div>';
+    rows += '<div class="trow"><span>NYC sales tax</span><span>'+S.money(t.tax)+'</span></div>';
+    rows += '<div class="trow total"><span>Total</span><span>'+S.money(t.total)+'</span></div>';
+    totalsEl.innerHTML = rows;
+  }
+
+  function checkMinimums(){
+    [].forEach.call(zones.querySelectorAll('.opt[data-min]'),function(opt){
+      var min = +opt.getAttribute('data-min'), short = t.net < min;
+      opt.classList.toggle('short', short);
+      opt.querySelector('.min-warn').textContent = short ? 'Add '+S.money(min - t.net)+' more for this zone' : '';
+    });
+  }
+
+  function toggleAddress(){
+    var d = isDelivery();
+    [].forEach.call(form.querySelectorAll('.addr'),function(f){ f.style.display = d ? '' : 'none'; });
+    renderSummary();
+  }
+
+  zones.addEventListener('change', toggleAddress);
+
+  function bad(input, on){
+    input.classList.toggle('invalid', on);
+    var err = input.parentNode.querySelector('.field-err'); if(err) err.style.display = on ? 'block' : 'none';
+    return on;
+  }
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var invalid = false, first = null;
+    function req(id, test){
+      var el = document.getElementById(id);
+      var isBad = bad(el, !(test ? test(el.value.trim()) : el.value.trim()));
+      if(isBad){ invalid = true; first = first || el; }
+    }
+    req('name'); req('phone'); req('email', function(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); });
+    if(isDelivery()){ req('addr1'); req('zip', function(v){ return /^\d{5}$/.test(v); }); }
+    req('ccname'); req('ccnum', function(v){ return v.replace(/\D/g,'').length>=15; }); req('ccexp'); req('cccvc', function(v){ return /^\d{3,4}$/.test(v); });
+
+    var ageOk = document.getElementById('age21').checked;
+    document.getElementById('ageErr').style.display = ageOk ? 'none' : 'block';
+    if(!ageOk){ invalid = true; first = first || document.getElementById('age21'); }
+
+    var z = zone(), min = S.ZONES[z].min;
+    if(t.net < min){
+      invalid = true;
+      zones.querySelector('input[value='+z+']').closest('.opt').classList.add('short');
+      first = first || zones;
+    }
+    if(invalid){ first.scrollIntoView({behavior:'smooth',block:'center'}); if(first.focus) first.focus({preventScroll:true}); return; }
+
+    var digits = document.getElementById('ccnum').value.replace(/\D/g,'');
+    var order = {
+      number: S.orderNumber(),
+      placedAt: new Date().toISOString(),
+      zone: z, zoneLabel: S.ZONES[z].label,
+      customer: { name: document.getElementById('name').value.trim(), email: document.getElementById('email').value.trim(), phone: document.getElementById('phone').value.trim() },
+      address: isDelivery() ? { line1: document.getElementById('addr1').value.trim(), city: document.getElementById('city').value.trim(), zip: document.getElementById('zip').value.trim() } : null,
+      note: document.getElementById('note').value.trim(),
+      payment: 'Card ending ' + digits.slice(-4) + ' — demo, not charged',
+      lines: t.lines.map(function(l){ var w = S.byId(l.id); return { id: w.id, name: w.name, origin: w.origin, qty: l.qty, price: w.price }; }),
+      bottles: t.bottles, subtotal: t.subtotal, promo: t.promoState==='ok' ? t.promo : '', discount: t.discount, tax: t.tax, total: t.total
+    };
+    S.saveOrder(order);
+    S.clear();
+    location.href = 'confirmation.html';
+  });
+
+  toggleAddress(); checkMinimums();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Case — Big Nose Full Body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body class="cmstemplate_bnfb">
+
+<div class="ticker cmsobject_Ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+    <span>Open every day 12–9</span><span class="dot">★</span>
+    <span>Daily tastings — bottles 15% off</span><span class="dot">★</span>
+    <span>Free Park Slope delivery</span><span class="dot">★</span>
+    <span>600+ curated bottles</span><span class="dot">★</span>
+  </div>
+</div>
+
+<header class="nav cmsobject_SiteHeader">
+  <div class="nav__inner">
+    <a class="nav__logo" href="index.html" aria-label="Big Nose Full Body — home">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+    </a>
+    <nav class="nav__links">
+      <a href="index.html#shop">The Shop</a>
+      <a href="index.html#tastings">Tastings</a>
+      <a href="shop.html?tag=reserve">Reserve List</a>
+      <a href="index.html#visit">Visit</a>
+      <a class="nav__cta" href="shop.html">Shop Wines</a>
+      <a class="nav__cart" href="cart.html">Cart <b data-cart-count>0</b></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="pagehead">
+    <div class="wrap">
+      <p class="sec-label">Your Case</p>
+      <h1>What you're taking home</h1>
+      <p class="lede">Six bottles or more and the case discounts kick in. Free delivery across Park Slope, or pick up at 389 7th Ave.</p>
+    </div>
+  </div>
+
+  <div class="wrap cart-grid">
+    <div class="lines" id="lines" data-hook="cart-lines"></div>
+    <aside class="summary">
+      <div class="card">
+        <h3>Summary</h3>
+        <div id="totals" data-hook="cart-totals"></div>
+        <form class="promo" id="promoForm">
+          <input type="text" id="promoCode" placeholder="Promo code" aria-label="Promo code" autocomplete="off">
+          <button class="btn btn--ink" type="submit">Apply</button>
+        </form>
+        <p class="promo-msg" id="promoMsg" data-hook="cart-promo-message"></p>
+        <div class="nudge" id="nudge" data-hook="cart-nudge" hidden></div>
+        <a class="btn btn--solid" id="checkoutBtn" href="checkout.html">Check out</a>
+        <p class="fine">Delivery minimums: $50 orange zone · $100 purple zone. NYC sales tax added at checkout.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="cmsobject_SiteFooter">
+  <div class="wrap">
+    <div class="foot">
+      <img src="img/logo.png" alt="Big Nose Full Body">
+      <nav>
+        <a href="shop.html">Shop</a>
+        <a href="index.html#tastings">Delivery</a>
+        <a href="shop.html?tag=reserve">Reserve List</a>
+        <a href="https://www.instagram.com/bignosefullbody/">Instagram</a>
+        <a href="http://www.facebook.com/bignosefullbody">Facebook</a>
+        <a href="http://www.yelp.com/biz/big-nose-full-body-brooklyn">Yelp</a>
+      </nav>
+    </div>
+    <p class="big-word">Drink Curious</p>
+    <div class="foot-bottom">
+      <span>© Big Nose Full Body · 389 7th Ave, Brooklyn NY 11215</span>
+      <span>Please drink responsibly.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data/catalog.js"></script>
+<script src="js/store.js"></script>
+<script>
+(function(){
+  var S = window.BNFB;
+  var lines = document.getElementById('lines'), totalsEl = document.getElementById('totals');
+  var promoForm = document.getElementById('promoForm'), promoCode = document.getElementById('promoCode'), promoMsg = document.getElementById('promoMsg');
+  var nudge = document.getElementById('nudge'), checkoutBtn = document.getElementById('checkoutBtn');
+
+  function render(){
+    var t = S.totals();
+    if(!t.lines.length){
+      lines.innerHTML = '<p class="empty-state">Your case is empty. <a href="shop.html">Head to the cellar →</a></p>';
+    } else {
+      lines.innerHTML = t.lines.map(function(l){
+        var w = S.byId(l.id);
+        return '<div class="line" data-id="'+w.id+'">'+
+          '<img class="line__thumb" src="'+S.esc(w.image)+'" alt="" width="600" height="780">'+
+          '<div><h3>'+S.esc(w.name)+'</h3><p class="origin">'+S.esc(w.origin)+'</p>'+
+            '<p class="unit">'+S.money(w.price)+' each · <button class="rm" data-rm="'+w.id+'">Remove</button></p></div>'+
+          '<div class="qty"><button data-dec="'+w.id+'" aria-label="Fewer">−</button><output>'+l.qty+'</output><button data-inc="'+w.id+'" aria-label="More">+</button></div>'+
+          '<div class="lprice">'+S.money(w.price*l.qty)+'</div>'+
+        '</div>';
+      }).join('');
+    }
+
+    var rows = '<div class="trow"><span>'+t.bottles+' '+(t.bottles===1?'bottle':'bottles')+'</span><span>'+S.money(t.subtotal)+'</span></div>';
+    if(t.promoState==='ok') rows += '<div class="trow disc"><span>'+t.promo+' — '+Math.round(t.promoRate*100)+'% off</span><span>−'+S.money(t.discount)+'</span></div>';
+    rows += '<div class="trow"><span>Delivery</span><span>Free</span></div>';
+    rows += '<div class="trow"><span>Est. NYC sales tax</span><span>'+S.money(t.tax)+'</span></div>';
+    rows += '<div class="trow total"><span>Total</span><span>'+S.money(t.total)+'</span></div>';
+    totalsEl.innerHTML = rows;
+
+    promoCode.value = t.promo || '';
+    promoMsg.className = 'promo-msg';
+    if(t.promoState==='ok'){ promoMsg.textContent = S.PROMOS[t.promo].label + ' applied.'; promoMsg.classList.add('ok'); }
+    else if(t.promoState==='short'){ promoMsg.textContent = t.promo + ' needs ' + S.PROMOS[t.promo].min + '+ bottles — add ' + (S.PROMOS[t.promo].min - t.bottles) + ' more.'; promoMsg.classList.add('err'); }
+    else if(t.promoState==='unknown'){ promoMsg.textContent = 'We don\'t recognise that code.'; promoMsg.classList.add('err'); }
+    else promoMsg.textContent = '';
+
+    if(t.bottles>0 && t.bottles<6){ nudge.hidden=false; nudge.innerHTML = 'Add <b>'+(6-t.bottles)+' more</b> and take 5% off with <b>HALF5</b>.'; }
+    else if(t.bottles>=6 && t.bottles<12){ nudge.hidden=false; nudge.innerHTML = 'Make it a full case — <b>'+(12-t.bottles)+' more</b> unlocks 15% off with <b>CASE15</b>.'; }
+    else nudge.hidden = true;
+
+    checkoutBtn.toggleAttribute('disabled', !t.lines.length);
+  }
+
+  lines.addEventListener('click',function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    var id = b.getAttribute('data-inc')||b.getAttribute('data-dec')||b.getAttribute('data-rm');
+    var cur = S.getCart().filter(function(l){return l.id===id})[0];
+    if(b.hasAttribute('data-inc')) S.setQty(id, cur.qty+1);
+    else if(b.hasAttribute('data-dec')) S.setQty(id, cur.qty-1);
+    else S.remove(id);
+    render();
+  });
+  promoForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    S.setPromo(promoCode.value.trim());
+    render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>
