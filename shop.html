@@ -33,7 +33,9 @@
     </a>
     <nav class="nav__links">
       <a href="shop.html">The Cellar</a>
-      <a href="tastings.html">Tastings &amp; Delivery</a>
+      <a href="reserve.html">Reserve List</a>
+      <a href="guides.html">Guides</a>
+      <a href="tastings.html">Tastings</a>
       <a href="visit.html">Visit</a>
     </nav>
     <div class="nav__actions">
@@ -48,23 +50,31 @@
     <div class="wrap">
       <p class="sec-label">The Cellar</p>
       <h1>Shop the shelf</h1>
-      <p class="lede">Every bottle tagged the way we tag them in the shop. Filter by what matters to you, build a case, and we'll bring it round — free — or have it ready for pick-up.</p>
-      <p class="demo-note"><b>Demo storefront</b><span>Reserve-list bottles are from the shop's current list; everyday bottles marked “sample listing” are placeholders. Label images stand in for bottle shots. No real orders or payments are processed.</span></p>
+      <p class="lede">The whole shop, tagged the way we tag it on the shelf. Filter by colour, country or the terms that matter to you, build a case, and we'll bring it round — free — or have it ready for pick-up.</p>
+      <p class="demo-note"><b>Demo storefront</b><span>Bottles, photos, prices, descriptions and stock counts are mirrored from the shop's live catalogue. No real orders or payments are processed here.</span></p>
     </div>
   </div>
 
   <div class="filters">
     <div class="wrap">
-      <div class="filters__row" id="catRow" data-hook="shop-categories" role="group" aria-label="Category"></div>
-      <div class="filters__row">
-        <div class="filters__row" id="tagRow" data-hook="shop-tags" role="group" aria-label="Tags" style="flex:1"></div>
+      <div class="filters__search">
         <input type="search" id="q" placeholder="Search grape, region, producer…" aria-label="Search wines">
-        <select id="sort" aria-label="Sort">
-          <option value="featured">Featured</option>
-          <option value="price-asc">Price: low → high</option>
-          <option value="price-desc">Price: high → low</option>
-          <option value="name">A → Z</option>
-        </select>
+        <button class="filter-toggle" id="filterToggle" type="button" aria-expanded="false" aria-controls="filterPanel">
+          Filters <b id="filterCount" hidden>0</b>
+        </button>
+      </div>
+      <div class="filters__panel" id="filterPanel">
+        <div class="filters__row filters__row--cats" id="catRow" data-hook="shop-categories" role="group" aria-label="Category"></div>
+        <div class="filters__row" id="tagRow" data-hook="shop-tags" role="group" aria-label="Tags"></div>
+        <div class="filters__sortrow">
+          <select id="sort" aria-label="Sort">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: low → high</option>
+            <option value="price-desc">Price: high → low</option>
+            <option value="name">A → Z</option>
+          </select>
+          <button class="filter-clear" id="filterClear" type="button" hidden>Clear filters</button>
+        </div>
       </div>
     </div>
   </div>
@@ -72,6 +82,7 @@
   <div class="wrap">
     <p class="results-line" id="results" data-hook="shop-results"></p>
     <div class="wgrid" id="grid" data-hook="shop-grid"></div>
+    <button class="btn btn--solid showmore" id="more" hidden>Show more</button>
   </div>
 </main>
 
@@ -81,9 +92,13 @@
       <img src="img/logo.png" alt="Big Nose Full Body">
       <nav>
         <a href="shop.html">Shop</a>
+        <a href="reserve.html">Reserve List</a>
+        <a href="new-arrivals.html">New Arrivals</a>
+        <a href="catalogue.html">Full Cellar List</a>
+        <a href="guides.html">Guides</a>
         <a href="tastings.html">Tastings &amp; Delivery</a>
         <a href="visit.html">Visit</a>
-        <a href="catalogue.html">Full Cellar List</a>
+        <a href="terms.html">Terms</a>
         <a href="https://www.instagram.com/bignosefullbody/">Instagram</a>
         <a href="http://www.facebook.com/bignosefullbody">Facebook</a>
         <a href="http://www.yelp.com/biz/big-nose-full-body-brooklyn">Yelp</a>
@@ -112,10 +127,13 @@
   var catRow = document.getElementById('catRow'), tagRow = document.getElementById('tagRow');
   var grid = document.getElementById('grid'), results = document.getElementById('results');
   var q = document.getElementById('q'), sort = document.getElementById('sort');
+  var more = document.getElementById('more');
   q.value = state.q;
 
-  var CAT_ORDER = ['all','sparkling','white','rose','orange','red','sake','large','dessert','gift'];
-  var TAG_ORDER = ['reserve','organic','biodynamic','natural','vegan','unoaked','minimal-sulfur','no-added-sulfur','kosher'];
+  var CAT_ORDER = ['all','sparkling','white','rose','orange','red','fortified','sake','half','alt','kosher','dealc','gift'];
+  var TAG_ORDER = ['reserve','new','organic','biodynamic','sustainable','natural','vegan','minimal-sulfur','no-added-sulfur','pet-nat','unoaked','kosher'];
+  var PAGE = 48;   /* cards rendered per batch — the shelf is 500+ bottles deep */
+  var shown = PAGE;
 
   function renderFilters(){
     catRow.innerHTML = CAT_ORDER.map(function(c){
@@ -134,7 +152,7 @@
       if(state.cat!=='all' && w.cat!==state.cat) return false;
       for(var i=0;i<state.tags.length;i++) if(w.tags.indexOf(state.tags[i])<0) return false;
       if(needle){
-        var hay = (w.name+' '+w.origin+' '+w.desc+' '+S.CATS[w.cat].label+' '+w.tags.map(function(t){return S.TAGS[t]}).join(' ')).toLowerCase();
+        var hay = (w.name+' '+w.origin+' '+w.desc+' '+w.pairings+' '+w.size+' '+S.CATS[w.cat].label+' '+w.tags.map(function(t){return S.TAGS[t]}).join(' ')).toLowerCase();
         if(hay.indexOf(needle)<0) return false;
       }
       return true;
@@ -150,25 +168,37 @@
     var tags = w.tags.map(function(t){
       return '<span'+(t==='reserve'?' class="rsv"':'')+'>'+S.TAGS[t]+'</span>';
     }).join('');
+    var buy = w.cellarOnly ? '<span class="cellar-only">In store only</span>'
+            : w.stock===0  ? '<button class="addbtn" disabled>Sold out</button>'
+            : '<button class="addbtn" data-add="'+w.id+'">Add to cart</button>';
     return '<article class="wcard" data-ref="'+S.esc(w.ref)+'" style="--label-cat:'+c.color+';--label-tint:color-mix(in srgb,'+c.color+' 14%,transparent)">'+
-      '<div class="wcard__img"><img src="'+S.esc(w.image)+'" alt="" loading="lazy" width="600" height="780"></div>'+
+      '<div class="wcard__img"><img src="'+S.esc(w.image)+'" alt="'+S.esc(w.name)+'" loading="lazy" width="420" height="559"></div>'+
       '<div class="wcard__body">'+
-        '<span class="wcard__cat">'+c.label+'</span>'+
+        '<span class="wcard__cat">'+c.label+(w.size&&w.size!=='750ml'?' · '+S.esc(w.size):'')+'</span>'+
         '<h3>'+S.esc(w.name)+'</h3>'+
         '<p class="wcard__origin">'+S.esc(w.origin)+'</p>'+
         '<p class="wcard__desc">'+S.esc(w.desc)+'</p>'+
+        (w.pairings?'<p class="wcard__pair"><b>Pairs with</b> '+S.esc(w.pairings)+'</p>':'')+
+        '<button class="readmore" type="button">Read more</button>'+
         '<div class="wcard__tags">'+tags+(w.score?'<span>'+S.esc(w.score)+'</span>':'')+
           (w.stock>0&&w.stock<=6?'<span class="low">Only '+w.stock+' left</span>':'')+'</div>'+
-        '<div class="wcard__meta"><span class="wcard__price">'+S.money(w.price).replace('.00','')+'</span>'+
-          (w.stock===0?'<button class="addbtn" disabled>Sold out</button>':'<button class="addbtn" data-add="'+w.id+'">Add to cart</button>')+'</div>'+
+        '<div class="wcard__meta"><span class="wcard__price">'+S.money(w.price).replace('.00','')+'</span>'+buy+'</div>'+
       '</div>'+
     '</article>';
   }
 
   function render(){
     var list = filtered();
-    results.textContent = list.length + (list.length===1?' bottle':' bottles') + (state.cat!=='all' ? ' · ' + S.CATS[state.cat].label : '') + (state.tags.length ? ' · ' + state.tags.map(function(t){return S.TAGS[t]}).join(' + ') : '');
-    grid.innerHTML = list.length ? list.map(card).join('') : '<p class="empty-state" style="grid-column:1/-1">Nothing on the shelf matches that — try fewer filters, or ask us; we probably have it in the back.</p>';
+    var page = list.slice(0, shown);
+    results.textContent = list.length + (list.length===1?' bottle':' bottles')
+      + (state.cat!=='all' ? ' · ' + S.CATS[state.cat].label : '')
+      + (state.tags.length ? ' · ' + state.tags.map(function(t){return S.TAGS[t]}).join(' + ') : '')
+      + (list.length>page.length ? ' · showing '+page.length : '');
+    grid.innerHTML = list.length ? page.map(card).join('')
+      : '<p class="empty-state" style="grid-column:1/-1">Nothing on the shelf matches that — try fewer filters, or ask us; we probably have it in the back.</p>';
+    S.trimReadMore(grid);
+    more.hidden = list.length <= page.length;
+    more.textContent = 'Show more — ' + (list.length - page.length) + ' to go';
     var hp = new URLSearchParams();
     if(state.cat!=='all') hp.set('cat',state.cat);
     if(state.tags.length) hp.set('tag',state.tags.join(','));
@@ -179,16 +209,16 @@
 
   catRow.addEventListener('click',function(e){
     var b = e.target.closest('[data-cat]'); if(!b) return;
-    state.cat = b.getAttribute('data-cat'); renderFilters(); render();
+    state.cat = b.getAttribute('data-cat'); shown = PAGE; renderFilters(); render();
   });
   tagRow.addEventListener('click',function(e){
     var b = e.target.closest('[data-tag]'); if(!b) return;
     var t = b.getAttribute('data-tag'), i = state.tags.indexOf(t);
     i>-1 ? state.tags.splice(i,1) : state.tags.push(t);
-    renderFilters(); render();
+    shown = PAGE; renderFilters(); render();
   });
-  q.addEventListener('input',function(){ state.q = q.value; render(); });
-  sort.addEventListener('change',function(){ state.sort = sort.value; render(); });
+  q.addEventListener('input',function(){ state.q = q.value; shown = PAGE; render(); });
+  sort.addEventListener('change',function(){ state.sort = sort.value; shown = PAGE; render(); });
   grid.addEventListener('click',function(e){
     var b = e.target.closest('[data-add]'); if(!b) return;
     var id = b.getAttribute('data-add');
@@ -197,7 +227,29 @@
     setTimeout(function(){ b.textContent='Add to cart'; b.classList.remove('added'); },1400);
   });
 
-  renderFilters(); render();
+  more.addEventListener('click',function(){ shown += PAGE; render(); });
+
+  /* On a phone the filter wall came before any wine, so it collapses behind one
+     button; the count tells you what's on without opening it. */
+  var panel = document.getElementById('filterPanel'), toggle = document.getElementById('filterToggle');
+  var countEl = document.getElementById('filterCount'), clear = document.getElementById('filterClear');
+  toggle.addEventListener('click',function(){
+    var open = panel.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  clear.addEventListener('click',function(){
+    state.cat = 'all'; state.tags = []; state.q = ''; q.value = '';
+    shown = PAGE; renderFilters(); render();
+  });
+  function syncFilterCount(){
+    var n = (state.cat !== 'all' ? 1 : 0) + state.tags.length;
+    countEl.hidden = !n; countEl.textContent = n;
+    clear.hidden = !n && !state.q;
+  }
+  var _renderFilters = renderFilters;
+  renderFilters = function(){ _renderFilters(); syncFilterCount(); };
+
+  renderFilters(); render(); syncFilterCount();
 })();
 </script>
 </body>

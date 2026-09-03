@@ -5,21 +5,27 @@ window.BNFB = (function () {
   'use strict';
 
   var CATS = {
-    sparkling: { label: 'Sparkling',           color: '#b8891c' },
-    white:     { label: 'White',               color: '#c2a12a' },
-    rose:      { label: 'Rosé',                color: '#d4607f' },
-    orange:    { label: 'Orange & Funky',      color: '#c96a1f' },
-    red:       { label: 'Red',                 color: '#950951' },
-    sake:      { label: 'Sake & Cider',        color: '#3f5b8c' },
-    large:     { label: 'Large Format',        color: '#17120e' },
-    dessert:   { label: 'Dessert & Fortified', color: '#6b3fa0' },
-    gift:      { label: 'Gift Cards',          color: '#17120e' }
+    sparkling: { label: 'Sparkling',          color: '#b8891c' },
+    white:     { label: 'White',              color: '#c2a12a' },
+    rose:      { label: 'Rosé',               color: '#d4607f' },
+    orange:    { label: 'Orange & Beyond',    color: '#c96a1f' },
+    red:       { label: 'Red',                color: '#950951' },
+    sake:      { label: 'Sake & Cider',       color: '#3f5b8c' },
+    fortified: { label: 'Fortified & Dessert',color: '#6b3fa0' },
+    half:      { label: 'Half Bottles',       color: '#7a6a55' },
+    alt:       { label: 'Boxes, Cans & Cartons', color: '#2f7d6b' },
+    kosher:    { label: 'Kosher',             color: '#1f5f8b' },
+    dealc:     { label: 'De-Alcoholized',     color: '#4a7c3f' },
+    gift:      { label: 'Gift Cards',         color: '#17120e' },
+    reserve:   { label: 'Reserve List',       color: '#6d0339' }
   };
 
   var TAGS = {
-    reserve: 'Reserve List', organic: 'Organic', biodynamic: 'Biodynamic', vegan: 'Vegan',
-    natural: 'Natural', unoaked: 'Unoaked', 'minimal-sulfur': 'Minimal Sulfur',
-    'no-added-sulfur': 'No Added Sulfur', kosher: 'Kosher', sustainable: 'Sustainable', sample: 'Sample listing'
+    reserve: 'Reserve List', organic: 'Organic', biodynamic: 'Biodynamic', sustainable: 'Sustainable',
+    vegan: 'Vegan', natural: 'Natural', 'minimal-sulfur': 'Minimal Sulfur',
+    'no-added-sulfur': 'No Added Sulfur', unoaked: 'Unoaked', kosher: 'Kosher',
+    orange: 'Orange / Skin Contact', 'skin-contact': 'Skin Contact', 'pet-nat': 'Pét-Nat',
+    'off-dry': 'Off Dry', new: 'New Arrival'
   };
 
   var FEED = (window.BNFB_CATALOG && window.BNFB_CATALOG.works) || [];
@@ -27,9 +33,13 @@ window.BNFB = (function () {
     return {
       id: w.id, ref: w.ref || w.id, name: w.title, cat: CATS[w.category] ? w.category : 'red',
       origin: w.place || '', price: +w.price || 0, tags: w.tagKeys || [], score: w.score || '',
-      desc: w.description || '', image: (w.image && (w.image.thumb || w.image.large)) || '', featured: !!w.featured,
+      desc: w.description || '', pairings: w.pairings || '', size: w.size || '',
+      image: (w.image && (w.image.thumb || w.image.large)) || '', featured: !!w.featured,
+      /* a Reserve-List bottle the shop keeps in the cellar: ask at the counter, not orderable online */
+      cellarOnly: !!w.cellarOnly,
       /* -1 = open (never runs out); 0 = sold out; n = bottles on the shelf */
-      stock: (w.stock === null || w.stock === undefined || w.stock === '' || +w.stock < 0) ? -1 : Math.floor(+w.stock)
+      stock: w.cellarOnly ? 0
+           : (w.stock === null || w.stock === undefined || w.stock === '' || +w.stock < 0) ? -1 : Math.floor(+w.stock)
     };
   });
 
@@ -115,6 +125,34 @@ window.BNFB = (function () {
     });
   }
 
+  /* Cards are a fixed height so the grid stays even; "Read more" opens the one you want.
+     Delegated once, so it covers both the shop's rendered cards and the static pages'. */
+  var readMoreWired = false;
+  function wireReadMore() {
+    if (readMoreWired) return;
+    readMoreWired = true;
+    document.addEventListener('click', function (ev) {
+      var b = ev.target.closest && ev.target.closest('.readmore');
+      if (!b) return;
+      var card = b.closest('.wcard');
+      if (!card) return;
+      b.textContent = card.classList.toggle('open') ? 'Read less' : 'Read more';
+    });
+  }
+  /* hide the toggle on cards whose text already fits */
+  function trimReadMore(root) {
+    var cards = (root || document).querySelectorAll('.wcard');
+    [].forEach.call(cards, function (card) {
+      var b = card.querySelector('.readmore');
+      if (!b || card.classList.contains('open')) return;
+      var pair = card.querySelector('.wcard__pair');
+      var desc = card.querySelector('.wcard__desc');
+      var clipped = (desc && desc.scrollHeight > desc.clientHeight + 2) ||
+                    (pair && pair.textContent.trim() !== '');
+      b.hidden = !clipped;
+    });
+  }
+
   function saveOrder(o) { write(KEY_ORDER, o); }
   function lastOrder() { return read(KEY_ORDER, null); }
   function orderNumber() {
@@ -122,12 +160,15 @@ window.BNFB = (function () {
     return 'BNFB-' + t + r;
   }
 
-  document.addEventListener('DOMContentLoaded', function () { renderCount(false); });
+  document.addEventListener('DOMContentLoaded', function () {
+    renderCount(false); wireReadMore(); trimReadMore(document);
+  });
 
   return {
     CATS: CATS, TAGS: TAGS, WINES: WINES, PROMOS: PROMOS, ZONES: ZONES, TAX_RATE: TAX_RATE,
     byId: byId, getCart: getCart, add: add, setQty: setQty, remove: remove, clear: clear, bottles: bottles, room: room,
     getPromo: getPromo, setPromo: setPromo, totals: totals, money: money, esc: esc, renderCount: renderCount,
-    saveOrder: saveOrder, lastOrder: lastOrder, orderNumber: orderNumber
+    saveOrder: saveOrder, lastOrder: lastOrder, orderNumber: orderNumber,
+    wireReadMore: wireReadMore, trimReadMore: trimReadMore
   };
 })();

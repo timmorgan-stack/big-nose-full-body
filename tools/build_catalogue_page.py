@@ -15,7 +15,8 @@ ticker = chunk(r'<div class="ticker[^"]*".*?</div>\s*</div>')
 header = chunk(r'<header.*?</header>')
 footer = chunk(r'<footer.*?</footer>')
 
-order = ["sparkling","white","rose","orange","red","sake","large","dessert","gift"]
+order = ["reserve","sparkling","white","rose","orange","red","fortified","sake",
+         "half","alt","kosher","dealc","gift"]
 by_cat = {}
 for w in feed["works"]:
     by_cat.setdefault(w["category"], []).append(w)
@@ -73,8 +74,8 @@ page = f'''<!DOCTYPE html>
       <p class="sec-label">Full Cellar List</p>
       <h1>Every bottle, one page</h1>
       <p class="lede">The whole shelf in plain text — {len(feed["works"])} bottles across {len([c for c in order if by_cat.get(c)])} sections. For filters, search and ordering, head to <a href="shop.html">the cellar</a>.</p>
-      <nav class="cat-jump" aria-label="Sections">
-{"".join(f'        <a href="#{c}">{e(by_cat[c][0]["series"])}</a>' + chr(10) for c in order if by_cat.get(c))}      </nav>
+      <div class="cat-jump" role="group" aria-label="Jump to a section">
+{"".join(f'        <a href="#{c}">{e(by_cat[c][0]["series"])}</a>' + chr(10) for c in order if by_cat.get(c))}      </div>
     </div>
   </div>
 
