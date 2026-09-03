@@ -135,6 +135,24 @@
   var PAGE = 48;   /* cards rendered per batch — the shelf is 500+ bottles deep */
   var shown = PAGE;
 
+  /* Changing a filter replaces the whole grid, so bring the top of the results back
+     into view — otherwise you are left stranded halfway down the previous list. */
+  function showResultsTop(){
+    /* measured after layout settles: replacing the grid changes the page height,
+       and the browser clamps the scroll before a stale target can be used */
+    requestAnimationFrame(function(){
+      var bar = document.querySelector('.filters');
+      var nav = document.querySelector('header.nav');
+      var stick = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 14;
+      /* let the browser do the arithmetic: scroll-margin-top keeps the results line
+         clear of the sticky header + filter bar, whatever height they are */
+      results.style.scrollMarginTop = stick + 'px';
+      if (results.getBoundingClientRect().top < stick) {
+        results.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    });
+  }
+
   function renderFilters(){
     catRow.innerHTML = CAT_ORDER.map(function(c){
       var label = c==='all' ? 'All' : S.CATS[c].label;
@@ -214,16 +232,16 @@
 
   catRow.addEventListener('click',function(e){
     var b = e.target.closest('[data-cat]'); if(!b) return;
-    state.cat = b.getAttribute('data-cat'); shown = PAGE; renderFilters(); render();
+    state.cat = b.getAttribute('data-cat'); shown = PAGE; renderFilters(); render(); showResultsTop();
   });
   tagRow.addEventListener('click',function(e){
     var b = e.target.closest('[data-tag]'); if(!b) return;
     var t = b.getAttribute('data-tag'), i = state.tags.indexOf(t);
     i>-1 ? state.tags.splice(i,1) : state.tags.push(t);
-    shown = PAGE; renderFilters(); render();
+    shown = PAGE; renderFilters(); render(); showResultsTop();
   });
   q.addEventListener('input',function(){ state.q = q.value; shown = PAGE; render(); });
-  sort.addEventListener('change',function(){ state.sort = sort.value; shown = PAGE; render(); });
+  sort.addEventListener('change',function(){ state.sort = sort.value; shown = PAGE; render(); showResultsTop(); });
   more.addEventListener('click',function(){ shown += PAGE; render(); });
 
   /* On a phone the filter wall came before any wine, so it collapses behind one
@@ -236,7 +254,7 @@
   });
   clear.addEventListener('click',function(){
     state.cat = 'all'; state.tags = []; state.q = ''; q.value = '';
-    shown = PAGE; renderFilters(); render();
+    shown = PAGE; renderFilters(); render(); showResultsTop();
   });
   function syncFilterCount(){
     var n = (state.cat !== 'all' ? 1 : 0) + state.tags.length;
