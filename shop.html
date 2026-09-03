@@ -67,7 +67,7 @@
         <div class="filters__row filters__row--cats" id="catRow" data-hook="shop-categories" role="group" aria-label="Category"></div>
         <div class="filters__row" id="tagRow" data-hook="shop-tags" role="group" aria-label="Tags"></div>
         <div class="filters__sortrow">
-          <select id="sort" aria-label="Sort">
+          <select id="sort" aria-label="Sort" data-house-select>
             <option value="featured">Featured</option>
             <option value="price-asc">Price: low → high</option>
             <option value="price-desc">Price: high → low</option>
@@ -170,7 +170,12 @@
     }).join('');
     var buy = w.cellarOnly ? '<span class="cellar-only">In store only</span>'
             : w.stock===0  ? '<button class="addbtn" disabled>Sold out</button>'
-            : '<button class="addbtn" data-add="'+w.id+'">Add to cart</button>';
+            : '<div class="wcard__buy">'+
+                '<div class="qty qty--sm"><button type="button" data-qdec="'+w.id+'" aria-label="Fewer">\u2212</button>'+
+                '<output>1</output>'+
+                '<button type="button" data-qinc="'+w.id+'" aria-label="More">+</button></div>'+
+                '<button class="addbtn" data-add="'+w.id+'">Add to cart</button>'+
+              '</div>';
     return '<article class="wcard" data-ref="'+S.esc(w.ref)+'" style="--label-cat:'+c.color+';--label-tint:color-mix(in srgb,'+c.color+' 14%,transparent)">'+
       '<div class="wcard__img"><img src="'+S.esc(w.image)+'" alt="'+S.esc(w.name)+'" loading="lazy" width="420" height="559"></div>'+
       '<div class="wcard__body">'+
@@ -219,14 +224,6 @@
   });
   q.addEventListener('input',function(){ state.q = q.value; shown = PAGE; render(); });
   sort.addEventListener('change',function(){ state.sort = sort.value; shown = PAGE; render(); });
-  grid.addEventListener('click',function(e){
-    var b = e.target.closest('[data-add]'); if(!b) return;
-    var id = b.getAttribute('data-add');
-    if(S.add(id,1)){ b.textContent = 'Added ✓'; b.classList.add('added'); }
-    else { b.textContent = 'All '+S.byId(id).stock+' in your cart'; }
-    setTimeout(function(){ b.textContent='Add to cart'; b.classList.remove('added'); },1400);
-  });
-
   more.addEventListener('click',function(){ shown += PAGE; render(); });
 
   /* On a phone the filter wall came before any wine, so it collapses behind one

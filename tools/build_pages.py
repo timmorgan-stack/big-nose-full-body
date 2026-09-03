@@ -72,7 +72,12 @@ def bottle_card(w, full=False):
     elif stock == 0:
         buy = '<button class="addbtn" disabled>Sold out</button>'
     else:
-        buy = f'<button class="addbtn" data-add="{e(w["id"])}">Add to cart</button>'
+        buy = ('<div class="wcard__buy">'
+               f'<div class="qty qty--sm"><button type="button" data-qdec="{e(w["id"])}" aria-label="Fewer">&minus;</button>'
+               '<output>1</output>'
+               f'<button type="button" data-qinc="{e(w["id"])}" aria-label="More">+</button></div>'
+               f'<button class="addbtn" data-add="{e(w["id"])}">Add to cart</button>'
+               '</div>')
     low = f'<span class="low">Only {stock} left</span>' if isinstance(stock, int) and 0 < stock <= 6 else ""
     size = f' · {e(w["size"])}' if w.get("size") and w["size"] != "750ml" else ""
     price = f'${w["price"]:,.0f}' if float(w["price"]).is_integer() else f'${w["price"]:,.2f}'
@@ -100,20 +105,7 @@ TAGLABEL = {"reserve":"Reserve List","organic":"Organic","biodynamic":"Biodynami
   "orange":"Orange / Skin Contact","skin-contact":"Skin Contact","pet-nat":"Pét-Nat",
   "off-dry":"Off Dry","new":"New Arrival"}
 
-ADD_SCRIPT = """<script>
-/* static bottle cards, same cart as the shop */
-(function(){
-  var S = window.BNFB;
-  document.addEventListener('click', function(ev){
-    var b = ev.target.closest('[data-add]'); if(!b) return;
-    var id = b.getAttribute('data-add');
-    if(S.add(id,1)){ b.textContent = 'Added \\u2713'; b.classList.add('added'); }
-    else { b.textContent = 'All ' + S.byId(id).stock + ' in your cart'; }
-    setTimeout(function(){ b.textContent = 'Add to cart'; b.classList.remove('added'); }, 1400);
-  });
-})();
-</script>
-"""
+ADD_SCRIPT = ""   # store.js wires add-to-cart for every page
 
 # ================================================================= RESERVE LIST
 res = [w for w in WORKS if "reserve" in w.get("tagKeys", [])]

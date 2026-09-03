@@ -121,8 +121,11 @@ window.BNFB = (function () {
     var n = bottles();
     [].forEach.call(document.querySelectorAll('[data-cart-count]'), function (el) {
       el.textContent = n;
+      var pill = el.closest('.nav__cart');
+      if (pill) pill.classList.toggle('nav__cart--full', n > 0);
       if (bump) { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
     });
+    refreshCartBar();
   }
 
   /* Cards are a fixed height so the grid stays even; "Read more" opens the one you want.
@@ -153,6 +156,145 @@ window.BNFB = (function () {
     });
   }
 
+  /* One delegated handler for every "Add to cart" on the site, whether the card was
+     rendered by the shop page or baked into a static page. Each card carries its own
+     quantity stepper, the same control the cart uses. */
+  var addWired = false;
+  function wireAdd() {
+    if (addWired) return;
+    addWired = true;
+    document.addEventListener('click', function (ev) {
+      var t = ev.target;
+      var step = t.closest && t.closest('[data-qinc],[data-qdec]');
+      if (step) {
+        var out = step.parentNode.querySelector('output');
+        var n = Math.max(1, (parseInt(out.textContent, 10) || 1) + (step.hasAttribute('data-qinc') ? 1 : -1));
+        var w = byId(step.getAttribute('data-qinc') || step.getAttribute('data-qdec'));
+        if (w && w.stock >= 0) n = Math.min(n, Math.max(1, w.stock));
+        out.textContent = n;
+        return;
+      }
+      var b = t.closest && t.closest('[data-add]');
+      if (!b) return;
+      var id = b.getAttribute('data-add');
+      var box = b.closest('.wcard__buy') || b.parentNode;
+      var qtyOut = box && box.querySelector('output');
+      var qty = qtyOut ? Math.max(1, parseInt(qtyOut.textContent, 10) || 1) : 1;
+      if (add(id, qty)) {
+        b.textContent = qty > 1 ? ('Added ' + qty + ' \u2713') : 'Added \u2713';
+        b.classList.add('added');
+        if (qtyOut) qtyOut.textContent = 1;
+      } else {
+        var w = byId(id);
+        b.textContent = w && w.stock === 0 ? 'Sold out' : ('Only ' + (w ? w.stock : 0) + ' available');
+      }
+      setTimeout(function () { b.textContent = 'Add to cart'; b.classList.remove('added'); }, 1500);
+    });
+  }
+
+  /* A standing bar with the running total and both ways on to checkout.
+     It only appears once there is something in the cart, and never on the
+     cart or checkout pages themselves. */
+  function wireCartBar() {
+    var here = location.pathname.split('/').pop();
+    if (here === 'cart.html' || here === 'checkout.html' || here === 'confirmation.html') return;
+    var bar = document.createElement('div');
+    bar.className = 'cartbar';
+    bar.hidden = true;
+    bar.innerHTML =
+      '<div class="cartbar__inner">' +
+        '<span class="cartbar__sum"><b data-bar-count>0</b> <span data-bar-total></span></span>' +
+        '<a class="cartbar__view" href="cart.html">View cart</a>' +
+        '<a class="cartbar__cta" href="checkout.html">Check out</a>' +
+      '</div>';
+    document.body.appendChild(bar);
+    refreshCartBar();
+  }
+  function refreshCartBar() {
+    var bar = document.querySelector('.cartbar');
+    if (!bar) return;
+    var t = totals();
+    bar.hidden = t.bottles === 0;
+    document.body.classList.toggle('has-cartbar', t.bottles > 0);
+    var c = bar.querySelector('[data-bar-count]'), s = bar.querySelector('[data-bar-total]');
+    if (c) c.textContent = t.bottles + (t.bottles === 1 ? ' bottle' : ' bottles');
+    if (s) s.textContent = '\u00b7 ' + money(t.subtotal);
+  }
+
+  /* Native <select> popups are drawn by the OS and ignore the house style, so any
+     select marked data-house-select gets a listbox we control. The real <select>
+     stays in the DOM and still fires "change", so page code and forms are unchanged. */
+  function wireSelects(root) {
+    var sels = (root || document).querySelectorAll('select[data-house-select]');
+    [].forEach.call(sels, function (sel) {
+      if (sel.dataset.houseWired) return;
+      sel.dataset.houseWired = '1';
+
+      var wrap = document.createElement('div');
+      wrap.className = 'selectmenu';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'selectmenu__btn';
+      btn.setAttribute('aria-haspopup', 'listbox');
+      btn.setAttribute('aria-expanded', 'false');
+      if (sel.getAttribute('aria-label')) btn.setAttribute('aria-label', sel.getAttribute('aria-label'));
+      var list = document.createElement('ul');
+      list.className = 'selectmenu__list';
+      list.setAttribute('role', 'listbox');
+      list.hidden = true;
+
+      sel.parentNode.insertBefore(wrap, sel);
+      wrap.appendChild(btn); wrap.appendChild(list); wrap.appendChild(sel);
+      sel.classList.add('selectmenu__native');
+
+      function paint() {
+        btn.textContent = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : '';
+        list.innerHTML = '';
+        [].forEach.call(sel.options, function (o, i) {
+          var li = document.createElement('li');
+          li.setAttribute('role', 'option');
+          li.setAttribute('aria-selected', i === sel.selectedIndex ? 'true' : 'false');
+          li.dataset.i = i;
+          li.textContent = o.text;
+          list.appendChild(li);
+        });
+      }
+      function open(state) {
+        list.hidden = !state;
+        btn.setAttribute('aria-expanded', state ? 'true' : 'false');
+        wrap.classList.toggle('open', !!state);
+      }
+      function choose(i) {
+        if (i < 0 || i >= sel.options.length) return;
+        sel.selectedIndex = i;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+        paint(); open(false); btn.focus();
+      }
+
+      paint();
+      btn.addEventListener('click', function () { open(list.hidden); });
+      list.addEventListener('click', function (ev) {
+        var li = ev.target.closest('[data-i]');
+        if (li) choose(+li.dataset.i);
+      });
+      wrap.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') { open(false); btn.focus(); return; }
+        if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+          ev.preventDefault();
+          if (list.hidden) { open(true); return; }
+          choose(sel.selectedIndex + (ev.key === 'ArrowDown' ? 1 : -1));
+        }
+        if ((ev.key === 'Enter' || ev.key === ' ') && !list.hidden) {
+          var li = ev.target.closest('[data-i]');
+          if (li) { ev.preventDefault(); choose(+li.dataset.i); }
+        }
+      });
+      document.addEventListener('click', function (ev) {
+        if (!wrap.contains(ev.target)) open(false);
+      });
+    });
+  }
+
   function saveOrder(o) { write(KEY_ORDER, o); }
   function lastOrder() { return read(KEY_ORDER, null); }
   function orderNumber() {
@@ -161,7 +303,7 @@ window.BNFB = (function () {
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    renderCount(false); wireReadMore(); trimReadMore(document);
+    renderCount(false); wireReadMore(); trimReadMore(document); wireAdd(); wireCartBar(); wireSelects(document);
   });
 
   return {
@@ -169,6 +311,6 @@ window.BNFB = (function () {
     byId: byId, getCart: getCart, add: add, setQty: setQty, remove: remove, clear: clear, bottles: bottles, room: room,
     getPromo: getPromo, setPromo: setPromo, totals: totals, money: money, esc: esc, renderCount: renderCount,
     saveOrder: saveOrder, lastOrder: lastOrder, orderNumber: orderNumber,
-    wireReadMore: wireReadMore, trimReadMore: trimReadMore
+    wireReadMore: wireReadMore, trimReadMore: trimReadMore, refreshCartBar: refreshCartBar, wireSelects: wireSelects
   };
 })();
